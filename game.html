@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boggle</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/game.css">
+</head>
+<body id="body">
+    <header id="header">
+        <a href="index.html"><img id="logoHeader" src="images/logo.png" alt="LogoHeader"></a>
+        <h2 id="subtitleHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h2>
+        <h3 id="madebyHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+    </header>
+    <main>
+        <section id="diceGrid">
+            <div id="dice">
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+                <button>1</button>
+            </div>
+        </section>
+        <section id="wordInfo">
+            <div id="wordHolder">
+                <h5>Palabra:</h5>
+                <p id="currentWord"></p>
+            </div>
+            <button id="submit">Confirmar Palabra</button>
+        </section>
+        <section id="wordList">
+            <table id="scoreTable">
+                <tr>
+                    <th>Palabras</th>
+                    <th>Score</th>
+                </tr>
+                <tr>
+                    <td>Total:</td>
+                    <td id="totalPoints">0</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+    <footer id="footer">
+        <section id="copyright">
+            <span>
+                Todos Los Derechos Reservados © 
+                2024 
+                Ernesto J. Moretti -
+                Mauricio Silva
+            </span>
+        </section>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
