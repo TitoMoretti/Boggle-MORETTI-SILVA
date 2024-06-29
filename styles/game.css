@@ -30,3 +30,30 @@ button:hover {
 .hidden {
     display: none;
 }
+
+#diceGrid {
+    margin-top: 1rem;
+    padding: 2rem;
+    background-color: #e2e2e2;
+    border-radius: 2rem;
+
+}
+
+#dice {
+    display: flex;
+    flex-wrap: wrap ;
+    width: 20rem;
+
+}
+
+.letter {
+    background-color: #f36900;
+    color: #fff;
+    height: 4rem;
+    width: 4rem;
+    margin: .5rem;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

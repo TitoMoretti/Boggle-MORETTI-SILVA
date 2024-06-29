@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/game.css">
 </head>
-<body id="body">
-    <header id="header">
+<body>
+    <header>
         <a href="index.html"><img id="logoHeader" src="images/logo.png" alt="LogoHeader"></a>
         <h2 id="subtitleHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h2>
         <h3 id="madebyHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
@@ -25,35 +25,28 @@
                 <button id="resetButton">Restablecer</button>
             </div>
         </div>
-        <section id="diceGrid">
+
+        <div id="diceGrid">
             <div id="dice">
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+                <div class="letter">1</div>
+               
             </div>
-        </section>
+        </div>
         <section id="wordInfo">
             <div id="wordHolder">
                 <h5>Palabra:</h5>
@@ -74,15 +67,17 @@
             </table>
         </section>
     </main>
-    <footer id="footer">
-        <section id="copyright">
+    <footer>
+        <div id="footer">
             <span>
-                Todos Los Derechos Reservados © 
-                2024 
+                Todos Los Derechos Reservados ©
+                2024
+            </span>
+            <span>
                 Ernesto J. Moretti -
                 Mauricio Silva
             </span>
-        </section>
+        </div>
     </footer>
     <script src="app.js"></script>
     <script src="./js/temporizador.js"></script>
