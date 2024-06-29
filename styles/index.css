@@ -1,84 +1,80 @@
-#body {
+/* MOBILE FIRST */
+
+* {
     font-family: Roboto, sans-serif;
-    margin: 0;
-    padding: 0;
+
 }
 
-#header {
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+header {
     background-color: #f36900;
     color: white;
     text-align: center;
     padding: 10px;
 }
 
-#header img {
-    width: auto;
-}
-
-#subtitleHeader {
-    font-size: 20px;
-}
-
-#madebyHeader {
-    font-size: 15px;
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #mainPage {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+}
+
+#playGame {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+}
+
+#playGame button {
+    background-color: #f36900;
+    width: 25%;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+
+}
+
+.infoSection {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    box-shadow: 0 2px 5px #00000042;
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
-#titlePage{
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: -3px;
+.infoContainer {
+    justify-content: space-between;
+    width: 100%;
+    text-align: justify;
 }
 
-#subtitlePage{
-    margin-top: 10px;
-    margin-bottom: 20px;
+
+footer {
+
+    background-color: #f36900;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 1rem;
+
 }
 
-#mainPagenDiv {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-#mainPagePart {
+#footer {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-#mainPageImage1 {
-    width: 350px;
-}
-
-#footer{
-    background-color: #000000dc;
-    color: #333;
-    overflow: hidden;
     padding-top: 5px;
     padding-bottom: 5px;
-    width: auto;
-}
-
-#copyright{
-    align-items: center;
-    background-color: #f36900;
-    box-shadow: 0 2px 5px #00000042;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 10px;
-    width: 100%;
 }
