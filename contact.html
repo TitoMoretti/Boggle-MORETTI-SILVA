@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Boggle!</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/contact.css">
+</head>
+<body>
+    <header>
+        <a href="index.html"><img id="logoHeader" src="images/logo.png" alt="LogoHeader"></a>
+        <div id="headerText">
+            <h2 class="subtitleText">El juego de palabras más divertido</h2>
+            <h3 class="madeClass">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        </div>
+    </header>
+    <main>
+        <section class="contact">
+            <h1 class="contactTitle">Formulario de Contacto</h1>
+            <p class="contactText">Por favor ingrese los siguientes datos:</p>
+            <form class="formId" action="" method="get">
+                <div class="contactDiv">
+                    <div class="contactPart">
+                        <label class="contactLabel" for="nameId">Nombre Completo:</label>
+                        <input type="text" name="name" id="nameId">
+                        <p id="error-nameId"> </p>
+                    </div>
+                    <div class="contactPart">
+                        <label class="contactLabel" for="emailId">Email:</label>
+                        <input type="email" name="email" id="emailId">
+                        <p id="error-emailId"> </p>
+                    </div>
+                </div>
+                <div class="contactDiv">
+                    <div class="contactPart">
+                        <label class="contactLabel" for="messageId">Mensaje:</label>
+                        <textarea name="message" id="messageId" cols="30" rows="10"></textarea>
+                        <p id="error-messageId"> </p>
+                    </div>
+                </div>
+                <div class="contactDiv">
+                    <div class="contactPart">
+                        <input class="contactSubmit" id="submitId" type="submit" value="Enviar">
+                    </div>
+                </div>
+            </form>
+        </section>
+        <div id="modal">
+            <div class="modalContent">
+                <h2>Título</h2>
+                <p>Contenido del modal.</p>
+                <button class="closeBtn">Close</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div id="footer">
+            <span>
+                <a class="footerLink" href="index.html">Inicio</a> -
+                <a class="footerLink" href="game.html">Jugar</a> -
+                <a class="footerLink" href="contact.html">Contacto</a> -
+                <a class="footerLink" href="https://github.com/TitoMoretti/Boggle-MORETTI-SILVA">GitHub</a>
+            </span>
+            <span class="Copyright">
+                Todos Los Derechos Reservados ©
+                2024
+            </span>
+            <span>
+                Ernesto J. Moretti -
+                Mauricio Silva
+            </span>
+        </div>
+    </footer>
+    <script src="contact.js"></script>
+</body>
+</html>
