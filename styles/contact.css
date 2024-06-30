@@ -1,0 +1,129 @@
+.contact {
+    align-items: center;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.contactTitle {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: -3px;
+}
+
+.contactText {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.contactDiv {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.contactPart {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-self: center;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+.contactPart input {
+    width: 429px;
+}
+
+.contactPart textarea {
+    height: 332px;
+    width: 424px;
+    min-height: 332px;
+    min-width: 424px;
+    max-width: 424px;
+}
+
+.contactPart p {
+    margin-bottom: 10px;
+    font-size: 11px;
+    width: 200px;
+}
+
+.contactLabel {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contactSubmit {
+    background-color: #f36900;
+    width: 25%;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 130px;
+    height: 50px;
+    width: 132px;
+    margin: auto;
+}
+
+#modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modalContent{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    position: relative;
+    overflow: hidden;
+}
+
+.closeBtn{
+    color: #fff;
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+/*Tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .contactDiv {
+        flex-direction: row;
+    }
+
+    .contactPart input {
+        max-width: 260px;
+    }
+
+    .contactSubmit {
+        align-self: flex-end;
+    }
+}
+
+/*Desktop*/
+@media screen and (min-width: 1024px) {
+    .contactDiv {
+        flex-direction: row;
+    }
+
+    .contactPart input {
+        max-width: 260px;
+    }
+}

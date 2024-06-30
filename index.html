@@ -11,17 +11,17 @@
 <body id="body">
     <header>
         <a href="index.html"><img id="logoHeader" src="images/logo.png" alt="LogoHeader"></a>
-        <h2 id="subtitleHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h2>
-        <h3 id="madebyHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        <div id="headerText">
+            <h2 class="subtitleText">El juego de palabras más divertido</h2>
+            <h3 class="madeClass">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        </div>
     </header>
     <main>
-        <h1>Bienvenido a Boggle!</h1>
-        <h2>El juego de palabras más divertido</h2>
         <div id="mainPage">
+            <h1 class="welcomeText">Bienvenido a Boggle!</h1>
             <div class="button" id="playGame">
                 <button onclick="window.location.href='game.html'">Jugar</button>
             </div>
-
             <div class="infoSection">
                 <div class="infoContainer">
                     <h3>¿Qué es Boggle?</h3>
@@ -64,11 +64,21 @@
                     <img src="images/creator.jpg" alt="creatorBoggle">
                 </div>
             </div>
+            <h2 class="contactText">¡No dude en contactarnos!</h2>
+            <div class="button" id="contact">
+                <button onclick="window.location.href='contact.html'">Contacto</button>
+            </div>
         </div>
     </main>
     <footer>
         <div id="footer">
             <span>
+                <a class="footerLink" href="index.html">Inicio</a> -
+                <a class="footerLink" href="game.html">Jugar</a> -
+                <a class="footerLink" href="contact.html">Contacto</a> -
+                <a class="footerLink" href="https://github.com/TitoMoretti/Boggle-MORETTI-SILVA">GitHub</a>
+            </span>
+            <span class="Copyright">
                 Todos Los Derechos Reservados ©
                 2024
             </span>

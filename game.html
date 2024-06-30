@@ -12,8 +12,10 @@
 <body>
     <header>
         <a href="index.html"><img id="logoHeader" src="images/logo.png" alt="LogoHeader"></a>
-        <h2 id="subtitleHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h2>
-        <h3 id="madebyHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        <div id="headerText">
+            <h2 class="subtitleText">El juego de palabras más divertido</h2>
+            <h3 class="madeClass">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        </div>
     </header>
     <main>
         <div class="container">
@@ -25,7 +27,6 @@
                 <button id="resetButton">Restablecer</button>
             </div>
         </div>
-
         <div id="diceGrid">
             <div id="dice">
                 <div class="letter">1</div>
@@ -44,7 +45,6 @@
                 <div class="letter">1</div>
                 <div class="letter">1</div>
                 <div class="letter">1</div>
-               
             </div>
         </div>
         <section id="wordInfo">
@@ -66,10 +66,23 @@
                 </tr>
             </table>
         </section>
+        <div id="modal">
+            <div class="modalContent">
+                <h2>Título</h2>
+                <p>Contenido del modal.</p>
+                <button class="closeBtn">Close</button>
+            </div>
+        </div>
     </main>
     <footer>
         <div id="footer">
             <span>
+                <a class="footerLink" href="index.html">Inicio</a> -
+                <a class="footerLink" href="game.html">Jugar</a> -
+                <a class="footerLink" href="contact.html">Contacto</a> -
+                <a class="footerLink" href="https://github.com/TitoMoretti/Boggle-MORETTI-SILVA">GitHub</a>
+            </span>
+            <span class="Copyright">
                 Todos Los Derechos Reservados ©
                 2024
             </span>
@@ -79,8 +92,7 @@
             </span>
         </div>
     </footer>
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
     <script src="./js/temporizador.js"></script>
-
 </body>
 </html>
