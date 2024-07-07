@@ -115,6 +115,14 @@
     .contactSubmit {
         align-self: flex-end;
     }
+
+    .contactPart textarea {
+        height: 332px;
+        width: 549px;
+        min-width: 549px;
+        max-width: 549px;
+        min-height: 332px;
+    }
 }
 
 /*Desktop*/
@@ -125,5 +133,13 @@
 
     .contactPart input {
         max-width: 260px;
+    }
+
+    .contactPart textarea {
+        height: 332px;
+        width: 549px;
+        min-width: 549px;
+        max-width: 549px;
+        min-height: 332px;
     }
 }
