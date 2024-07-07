@@ -1,3 +1,11 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .container {
     text-align: center;
@@ -59,6 +67,13 @@ button:hover {
     align-items: center;
 }
 
+.infoGame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 25px;
+}
+
 #modal{
     display: none;
     position: fixed;
@@ -88,4 +103,21 @@ button:hover {
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+/*Tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    main {
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+
+/*Desktop*/
+@media screen and (min-width: 1024px) {
+    main {
+        flex-direction: row;
+        gap: 25px;
+        height: 68vh;
+    }
 }
