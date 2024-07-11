@@ -95,11 +95,26 @@
 }
 
 .closeBtn{
+    background-color: #f36900;
+    border-radius: 1rem;
     color: #fff;
-    font-size: 30px;
+    font-size: 20px;
+    height: 55px;
     position: absolute;
     right: 10px;
     top: 10px;
+    width: 85px;
+}
+
+.okBtn, .noBtn{
+    background-color: #f36900;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 1rem;
+    max-width: 130px;
+    height: 50px;
+    width: 80px;
+    margin: auto;
 }
 
 /*Tablet*/
