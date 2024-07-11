@@ -21,24 +21,24 @@
         <div class="contact">
             <h1 class="contactTitle">Formulario de Contacto</h1>
             <p class="contactText">Por favor ingrese los siguientes datos:</p>
-            <form class="formId" action="" method="get">
+            <form method="post" class="formId" target="_blank">
                 <div class="contactDiv">
                     <div class="contactPart">
                         <label class="contactLabel" for="nameId">Nombre Completo:</label>
                         <input type="text" name="name" id="nameId">
-                        <p id="error-nameId"> </p>
+                        <p id="errornameId"></p>
                     </div>
                     <div class="contactPart">
                         <label class="contactLabel" for="emailId">Email:</label>
                         <input type="email" name="email" id="emailId">
-                        <p id="error-emailId"> </p>
+                        <p id="erroremailId"></p>
                     </div>
                 </div>
                 <div class="contactDiv">
                     <div class="contactPart">
                         <label class="contactLabel" for="messageId">Mensaje:</label>
                         <textarea name="message" id="messageId" cols="30" rows="10"></textarea>
-                        <p id="error-messageId"> </p>
+                        <p id="errormessageId"></p>
                     </div>
                 </div>
                 <div class="contactDiv">
@@ -53,6 +53,8 @@
                 <h2>Título</h2>
                 <p>Contenido del modal.</p>
                 <button class="closeBtn">Close</button>
+                <button class="okBtn">Si</button>
+                <button class="noBtn">No</button>
             </div>
         </div>
     </main>
@@ -74,6 +76,6 @@
             </span>
         </div>
     </footer>
-    <script src="contact.js"></script>
+    <script src="/js/contact.js"></script>
 </body>
 </html>
