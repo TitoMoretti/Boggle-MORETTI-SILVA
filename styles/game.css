@@ -7,6 +7,14 @@ main {
     margin-bottom: 10px;
 }
 
+.timerShuffle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .container {
     text-align: center;
     background: white;
@@ -103,6 +111,21 @@ button:hover {
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+#wordHolder{
+    display: flex;
+    gap: 10px;
+    font-size: 25px;
+}
+
+#currentWord {
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+#scoreTable {
+    margin-top: 20px;
 }
 
 /*Tablet*/
