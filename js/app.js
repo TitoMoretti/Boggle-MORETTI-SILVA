@@ -1,3 +1,29 @@
+window.onload = function() {
+    updateScores();
+    resetGame();
+};
+
+function updateScores () {
+    var scoreTable = document.querySelector('.scoreTable');
+    scoreTable.innerHTML = '<tr><th>Nombre de Usuario</th><th>Puntaje</th></tr>';
+    var scores = JSON.parse(localStorage.getItem('scores')) || [];
+    scores.sort(function(a, b) {
+        return b.points - a.points;
+    });
+    scores.forEach(function(score) {
+        var row = document.createElement('tr');
+        var nameCell = document.createElement('td');
+        var scoreCell = document.createElement('td');
+
+        nameCell.textContent = score.userId;
+        scoreCell.textContent = score.points;
+
+        row.appendChild(nameCell);
+        row.appendChild(scoreCell);
+        scoreTable.appendChild(row);
+    });
+}
+
 let countdown;
 let timeLeft = 3 * 60;
 let isPaused = false;
@@ -21,13 +47,24 @@ pauseButton.addEventListener('click', function() {
     if (isPaused) {
         startTimer();
         pauseButton.textContent = 'Pausar';
+        const letters = document.getElementsByClassName('letter');
+        for (let i = 0; i < letters.length; i++) {
+            letters[i].style.color = 'white';
+        }
     } else {
+        const letters = document.getElementsByClassName('letter');
+        for (let i = 0; i < letters.length; i++) {
+            letters[i].style.backgroundColor = '#f36900';
+            letters[i].style.color = letters[i].style.backgroundColor;
+        }
+        document.getElementById('currentWord').textContent = '';
         clearInterval(countdown);
         pauseButton.textContent = 'Continuar';
     }
     isPaused = !isPaused;
 });
-resetButton.addEventListener('click', function() {
+resetButton.addEventListener('click', resetGame);
+function resetGame() {
     clearInterval(countdown);
     timeLeft = 3 * 60;
     timerDisplay.textContent = '03:00';
@@ -40,7 +77,7 @@ resetButton.addEventListener('click', function() {
     gameStarted = false;
     emptyBoard();
     emptyTable();
-});
+}
 function startTimer() {
     countdown = setInterval(() => {
         const minutes = Math.floor(timeLeft / 60);
@@ -50,7 +87,13 @@ function startTimer() {
         if (timeLeft < 0) {
             clearInterval(countdown);
             timerDisplay.textContent = '00:00';
-            contentModal('Fin del juego', 'Se acabó el tiempo. ¿Desea enviar su puntaje?');
+            var totalPoints = document.getElementById('totalPoints').textContent;
+            if(parseInt(totalPoints) > 0){
+                contentModal('Fin del juego', 'Se acabó el tiempo y usted ha obtenido ' + totalPoints + '. ¿Desea enviar su puntaje?');
+            }
+            else{
+                contentModal('Fin del juego', 'Se acabó el tiempo. No ha obtenido puntos suficientes para enviar su puntaje. Por favor, inténtelo de nuevo.');
+            }
         }
     }, 1000);
 }
@@ -138,34 +181,45 @@ submitWord.addEventListener('click', function() {
                 document.getElementById('currentWord').textContent = '';
             }
             else{
-                const scoreTable = document.getElementById('scoreTable');
-                const currentWord = document.getElementById('currentWord').textContent;
-                const totalPoints = document.getElementById('totalPoints');
-                const newRow = document.createElement('tr');
-                const wordCell = document.createElement('td');
-                const scoreCell = document.createElement('td');
-                wordCell.textContent = currentWord;
-                scoreCell.textContent = calculateScore(currentWord);
-                totalPoints.textContent = parseInt(totalPoints.textContent) + parseInt(scoreCell.textContent);
-                newRow.appendChild(wordCell);
-                newRow.appendChild(scoreCell);
-                scoreTable.appendChild(newRow);
-                document.getElementById('currentWord').textContent = '';
-                
-                function calculateScore(word) {
-                    let length = word.length;
-                    if (length === 3 || length === 4) {
-                        return 1;
-                    } else if (length === 5) {
-                        return 2;
-                    } else if (length === 6) {
-                        return 3;
-                    } else if (length === 7) {
-                        return 5;
-                    } else if (length >= 8) {
-                        return 11;
-                    } else {
-                        return 0;
+                var scoreTable = document.getElementById('scoreTable');
+                var rows = scoreTable.getElementsByTagName('tr');
+                var repeated = false;
+                for (let i = 2; i < rows.length; i++) {
+                    if(rows[i].getElementsByTagName('td')[0].textContent === currentWord){
+                        repeated = true;
+                    }
+                }
+                if(repeated){
+                    document.getElementById('currentWord').textContent = '';
+                }
+                else{
+                    const currentWord = document.getElementById('currentWord').textContent;
+                    const totalPoints = document.getElementById('totalPoints');
+                    const newRow = document.createElement('tr');
+                    const wordCell = document.createElement('td');
+                    const scoreCell = document.createElement('td');
+                    wordCell.textContent = currentWord;
+                    scoreCell.textContent = calculateScore(currentWord);
+                    totalPoints.textContent = parseInt(totalPoints.textContent) + parseInt(scoreCell.textContent);
+                    newRow.appendChild(wordCell);
+                    newRow.appendChild(scoreCell);
+                    scoreTable.appendChild(newRow);
+                    document.getElementById('currentWord').textContent = '';
+                    function calculateScore(word) {
+                        let length = word.length;
+                        if (length === 3 || length === 4) {
+                            return 1;
+                        } else if (length === 5) {
+                            return 2;
+                        } else if (length === 6) {
+                            return 3;
+                        } else if (length === 7) {
+                            return 5;
+                        } else if (length >= 8) {
+                            return 11;
+                        } else {
+                            return 0;
+                        }
                     }
                 }
             }
@@ -190,21 +244,30 @@ function contentModal(título, mensaje){
     var modalNo = document.querySelector('.noBtn');
     modalOK.style.display = 'block';
     modalNo.style.display = 'block';
-    closeBtn.style.display = 'none';
 }
 var okButton = document.querySelector('.okBtn');
 okButton.addEventListener('click', function() {
-    if (!document.getElementById('userId').value.trim() === '') { 
-        var puntaje = document.getElementById('totalPoints').textContent;
-        var nombre = document.getElementById('userId').value;
-        localStorage.setItem(nombre, puntaje);  
-        closeModal();
-    } 
+    const userId = document.getElementById('userId').value;
+    const totalPoints = document.getElementById('totalPoints').textContent;
+    if(parseInt(totalPoints) > 0){
+        if (userId && totalPoints) {
+            const scores = JSON.parse(localStorage.getItem('scores')) || [];
+            const newScore = {
+                userId: userId,
+                points: totalPoints
+            };
+            scores.push(newScore);
+            localStorage.setItem('scores', JSON.stringify(scores));
+            updateScores();
+        }
+    }
+    resetGame();
+    closeModal();
 });
 var noButton = document.querySelector('.noBtn');
 noButton.addEventListener('click', function() {
     closeModal();
-    localStorage.clear();
+    window.location.href = 'index.html';
 });
 function closeModal(){
     var modal = document.querySelector('#modal');
