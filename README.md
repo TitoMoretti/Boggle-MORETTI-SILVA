@@ -4,7 +4,7 @@ Bienvenido a Boggle, un juego en donde usted debe tratar de encontrar palabras e
 
 ## Github Page
 
-Proximamente
+ <a href="https://titomoretti.github.io/Boggle-MORETTI-SILVA/">Link del proyecto.</a> 
 
 ## Datos de este Proyecto
 
