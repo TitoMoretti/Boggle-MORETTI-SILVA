@@ -163,7 +163,8 @@ function contentModal(título, mensaje){
 var okButton = document.querySelector('.okBtn');
 okButton.addEventListener('click', function() {
     var form = document.querySelector('form');
-    form.action="mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&BODY=" + messageInput.value + "&cc=" + emailInput.value + "";
+    //form.body.value = messageInput.value;
+    form.action="mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&body=" + messageInput.value + "&cc=" + emailInput.value + "";
     form.submit();    
     closeModal();
 });

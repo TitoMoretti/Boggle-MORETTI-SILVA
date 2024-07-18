@@ -170,7 +170,7 @@ submitWord.addEventListener('click', function() {
                 }
             }
         })
-        .catch(error => { 
+        .catch(() => { 
             document.getElementById('currentWord').textContent = '';
         });
     }

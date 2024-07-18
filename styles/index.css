@@ -50,6 +50,17 @@ main {
     padding: 1rem;
     border-radius: 1rem;
     max-width: 130px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#playGame button:hover {
+    background-color: #000000;
+}
+
+#contact button:hover {
+    background-color: #000000;
 }
 
 .infoSection {
