@@ -79,6 +79,14 @@ main {
     text-align: justify;
 }
 
+.scoreContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
 footer {
     background-color: #f36900;
     color: white;

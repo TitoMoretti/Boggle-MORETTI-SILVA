@@ -162,6 +162,13 @@ button:hover {
     margin: auto;
 }
 
+#buttonsModal {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
 /*Tablet*/
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     main {

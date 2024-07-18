@@ -88,7 +88,7 @@ var success = false;
 submitButton.addEventListener('click', function(event) {
     if(nameInput.value === '' || emailInput === '' || messageInput === ''){
         event.preventDefault();
-        localStorage.clear();
+        localStorage.removeItem('userData');
         contentModal('Error', 'Por favor complete todos los campos.');
     } else {
         if(!checkName()){
@@ -134,7 +134,7 @@ function errorMessage (input, message){
     }
 }
 function errorValidación(input){
-    localStorage.clear();
+    localStorage.removeItem('userData');
     var errorElement = document.getElementById('error' + input.id);
     var mensaje = errorElement.textContent + ' Por favor, verifique el campo correspondiente y vuelva a intentarlo.';
     contentModal('Error', mensaje);
@@ -163,7 +163,6 @@ function contentModal(título, mensaje){
 var okButton = document.querySelector('.okBtn');
 okButton.addEventListener('click', function() {
     var form = document.querySelector('form');
-    //form.body.value = messageInput.value;
     form.action="mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&body=" + messageInput.value + "&cc=" + emailInput.value + "";
     form.submit();    
     closeModal();
@@ -171,7 +170,7 @@ okButton.addEventListener('click', function() {
 var noButton = document.querySelector('.noBtn');
 noButton.addEventListener('click', function() {
     closeModal();
-    localStorage.clear();
+    localStorage.removeItem('userData');
 });
 var closeButton = document.querySelector('.closeBtn');
 closeButton.addEventListener('click', function() {
