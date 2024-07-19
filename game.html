@@ -18,77 +18,86 @@
         </div>
     </header>
     <main>
-        <div class="timerShuffle">
-            <div class="container">
-                <h1>Temporizador</h1>
-                <div id="timer"></div>
-                <button id="startButton">Iniciar Temporizador</button>
-                <div id="controlButtons" class="hidden">
-                    <button id="pauseButton">Pausar</button>
-                    <button id="resetButton">Restablecer</button>
+        <div class="game">
+            <div class="timerShuffle">
+                <div class="container">
+                    <h1>Temporizador</h1>
+                    <div id="timer"></div>
+                    <button id="startButton">Iniciar Temporizador</button>
+                    <div id="controlButtons" class="hidden">
+                        <button id="pauseButton">Pausar</button>
+                        <button id="resetButton">Restablecer</button>
+                    </div>
+                </div>
+                <button id="shuffle">Shuffle</button>
+            </div>
+            <div id="diceGrid">
+                <div id="dice">
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
                 </div>
             </div>
-            <button id="shuffle">Shuffle</button>
-        </div>
-        <div id="diceGrid">
-            <div id="dice">
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-                <div class="letter"> </div>
-            </div>
-        </div>
-        <div class="infoGame">
-            <div id="wordInfo">
-                <div id="wordHolder">
-                    <h5>Palabra:</h5>
-                    <p id="currentWord"></p>
+            <div class="infoGame">
+                <div id="wordInfo">
+                    <div id="wordHolder">
+                        <h5>Palabra:</h5>
+                        <p id="currentWord"></p>
+                    </div>
+                    <button id="cancel">Cancelar</button>
+                    <button id="submit">Confirmar Palabra</button>
                 </div>
-                <button id="cancel">Cancelar</button>
-                <button id="submit">Confirmar Palabra</button>
-            </div>
-            <div id="wordList">
-                <table id="scoreTable">
-                    <tr>
-                        <th>Palabras</th>
-                        <th>Score</th>
-                    </tr>
-                    <tr>
-                        <td>Total:</td>
-                        <td id="totalPoints">0</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="infoSection">
-            <div class="scoreContainer">
-                <h3>Tabla de Puntuación: </h3>
-                <table class="scoreTable"></table>
-            </div>
-        </div>
-        <div id="modal">
-            <div class="modalContent">
-                <h2>Título</h2>
-                <p>Contenido del modal.</p>
-                <input type="text" name="userName" id="userId">
-                <div id="buttonsModal">
-                    <button class="okBtn">Si</button>
-                    <button class="noBtn">No</button>
+                <div id="wordList">
+                    <table id="scoreTable">
+                        <tr>
+                            <th>Palabras</th>
+                            <th>Score</th>
+                        </tr>
+                        <tr>
+                            <td>Total:</td>
+                            <td id="totalPoints">0</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
+            
+            <div id="modal">
+                <div class="modalContent">
+                    <h2>Título</h2>
+                    <p>Contenido del modal.</p>
+                    <input type="text" name="userName" id="userId">
+                    <div id="buttonsModal">
+                        <button class="okBtn">Si</button>
+                        <button class="noBtn">No</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
+        <div class="score">
+            <div class="scoreSection">
+                <div class="scoreContainer">
+                    <h3>Tabla de Puntuación: </h3>
+                    <table class="scoreTable"></table>
+                </div>
+            </div>
+            
+
+        </div>
+
     </main>
     <footer>
         <div id="footer">
