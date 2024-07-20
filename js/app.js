@@ -1,8 +1,35 @@
+var countdown;
+var timeLeft = 3 * 60;
+var isPaused = false;
+var gameStarted = false;
+var timerDisplay = document.getElementById('timer');
+var startButton = document.getElementById('startButton');
+var controlButtons = document.getElementById('controlButtons');
+var pauseButton = document.getElementById('pauseButton');
+var resetButton = document.getElementById('resetButton');
+var currentWord = document.getElementById('currentWord');
+var totalPoints = document.getElementById('totalPoints');
+var shuffleButton = document.getElementById('shuffle');
+var dice = document.getElementById('dice');
+var letterDivs = dice.getElementsByClassName('letter');
+var scoreTable = document.getElementById('scoreTable');
+var rows = scoreTable.getElementsByTagName('tr');
+var cancelWord = document.getElementById('cancel');
+var submitWord = document.getElementById('submit');
+var modal = document.querySelector('#modal');
+var modalTitle = document.querySelector('#modal h2');
+var modalMessage = document.querySelector('#modal p');
+var modalOK = document.querySelector('.okBtn');
+var modalNo = document.querySelector('.noBtn');
+var userId = document.getElementById('userId');
+
+//Prepara el juego para ser jugado.
 window.onload = function() {
     updateScores();
     resetGame();
 };
 
+//Actualiza la tabla de puntuación.
 function updateScores () {
     var scoreTable = document.querySelector('.scoreTable');
     scoreTable.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th></tr>';
@@ -14,25 +41,15 @@ function updateScores () {
         var row = document.createElement('tr');
         var nameCell = document.createElement('td');
         var scoreCell = document.createElement('td');
-
         nameCell.textContent = score.userId;
         scoreCell.textContent = score.points;
-
         row.appendChild(nameCell);
         row.appendChild(scoreCell);
         scoreTable.appendChild(row);
     });
 }
 
-let countdown;
-let timeLeft = 3 * 60;
-let isPaused = false;
-let gameStarted = false;
-const timerDisplay = document.getElementById('timer');
-const startButton = document.getElementById('startButton');
-const controlButtons = document.getElementById('controlButtons');
-const pauseButton = document.getElementById('pauseButton');
-const resetButton = document.getElementById('resetButton');
+//Inicio del juego.
 startButton.addEventListener('click', function() {
     startButton.classList.add('hidden');
     controlButtons.classList.remove('hidden');
@@ -40,29 +57,77 @@ startButton.addEventListener('click', function() {
     startTimer();
     gameStarted = true;
     shuffleBoard();
-    document.getElementById('currentWord').textContent = '';
     emptyTable();
 });
+
+//Inicio del temporizador.
+function startTimer() {
+    countdown = setInterval(() => {
+        var minutes = Math.floor(timeLeft / 60);
+        var seconds = timeLeft % 60;
+        timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timeLeft--;
+        if (timeLeft < 0) {
+            clearInterval(countdown);
+            timerDisplay.textContent = '00:00';
+            if(parseInt(totalPoints.textContent) > 0){
+                contentModal('Fin del juego', 'Se acabó el tiempo y usted ha obtenido "' + totalPoints.textContent + '" puntos!!! ¿Desea enviar su puntaje?');
+            }
+            else{
+                contentModal('Fin del juego', 'Se acabó el tiempo. No ha obtenido puntos suficientes para enviar su puntaje. Por favor, inténtelo de nuevo.');
+            }
+        }
+    }, 1000);
+}
+
+//Baraja las letras.
+shuffleButton.addEventListener('click', shuffleBoard);
+function shuffleBoard() {
+    if(!isPaused && gameStarted){
+        for (var i = 0; i < letterDivs.length; i++) {
+            var letterDiv = letterDivs[i];
+            var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var randomIndex = Math.floor(Math.random() * letters.length);
+            var randomLetter = letters[randomIndex];
+            letterDiv.textContent = randomLetter;
+        }
+        changeColor();
+        currentWord.textContent = '';
+    }
+}
+
+//Limpia la tabla del usuario.
+function emptyTable() {
+    totalPoints.textContent = '0';
+    if(rows.length > 2){
+        var lenght = rows.length;
+        for (var i = 2; i < lenght; i++) {
+            scoreTable.removeChild(rows[2]);
+        }
+    }
+}
+
+//Pausa el juego.
 pauseButton.addEventListener('click', function() {
     if (isPaused) {
         startTimer();
         pauseButton.textContent = 'Pausar';
-        const letters = document.getElementsByClassName('letter');
-        for (let i = 0; i < letters.length; i++) {
-            letters[i].style.color = 'white';
+        for (var i = 0; i < letterDivs.length; i++) {
+            letterDivs[i].style.color = 'white';
         }
     } else {
-        const letters = document.getElementsByClassName('letter');
-        for (let i = 0; i < letters.length; i++) {
-            letters[i].style.backgroundColor = '#f36900';
-            letters[i].style.color = letters[i].style.backgroundColor;
+        for (var i = 0; i < letterDivs.length; i++) {
+            letterDivs[i].style.backgroundColor = '#f36900';
+            letterDivs[i].style.color = letterDivs[i].style.backgroundColor;
         }
-        document.getElementById('currentWord').textContent = '';
+        currentWord.textContent = '';
         clearInterval(countdown);
         pauseButton.textContent = 'Continuar';
     }
     isPaused = !isPaused;
 });
+
+//Reinicia el juego.
 resetButton.addEventListener('click', resetGame);
 function resetGame() {
     clearInterval(countdown);
@@ -72,189 +137,130 @@ function resetGame() {
     controlButtons.classList.add('hidden');
     isPaused = true;
     pauseButton.textContent = 'Pausar';
-    document.getElementById('currentWord').textContent = '';
+    currentWord.textContent = '';
     changeColor();
     gameStarted = false;
     emptyBoard();
     emptyTable();
 }
-function startTimer() {
-    countdown = setInterval(() => {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        timeLeft--;
-        if (timeLeft < 0) {
-            clearInterval(countdown);
-            timerDisplay.textContent = '00:00';
-            var totalPoints = document.getElementById('totalPoints').textContent;
-            if(parseInt(totalPoints) > 0){
-                contentModal('Fin del juego', 'Se acabó el tiempo y usted ha obtenido ' + totalPoints + '. ¿Desea enviar su puntaje?');
-            }
-            else{
-                contentModal('Fin del juego', 'Se acabó el tiempo. No ha obtenido puntos suficientes para enviar su puntaje. Por favor, inténtelo de nuevo.');
-            }
-        }
-    }, 1000);
-}
 
-var shuffleButton = document.getElementById('shuffle');
-shuffleButton.addEventListener('click', shuffleBoard);
-function shuffleBoard() {
-    if(!isPaused && gameStarted){
-        const dice = document.getElementById('dice');
-        const letterDivs = dice.getElementsByClassName('letter');
-        for (let i = 0; i < letterDivs.length; i++) {
-            const letterDiv = letterDivs[i];
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const randomIndex = Math.floor(Math.random() * letters.length);
-            const randomLetter = letters[randomIndex];
-            letterDiv.textContent = randomLetter;
-        }
-        changeColor();
-        document.getElementById('currentWord').textContent = '';
+//Cambia el color de fondo de las letras.
+function changeColor() {
+    for (var i = 0; i < letterDivs.length; i++) {
+        letterDivs[i].style.backgroundColor = '#f36900';
     }
 }
 
+//Limpia el tablero de letras.
 function emptyBoard() {
-    const dice = document.getElementById('dice');
-    const letterDivs = dice.getElementsByClassName('letter');
-    for (let i = 0; i < letterDivs.length; i++) {
-        const letterDiv = letterDivs[i];
+    for (var i = 0; i < letterDivs.length; i++) {
+        var letterDiv = letterDivs[i];
         letterDiv.textContent = '';
     }
 }
 
-function emptyTable() {
-    const totalPoints = document.getElementById('totalPoints');
-    totalPoints.textContent = '0';
-    const scoreTable = document.getElementById('scoreTable');
-    const rows = scoreTable.getElementsByTagName('tr');
-    if(rows.length > 2){
-        var lenght = rows.length;
-        for (let i = 2; i < lenght; i++) {
-            scoreTable.removeChild(rows[2]);
-        }
-    }
-}
-
+//Agregar o quitar letras de la palabra actual.
 document.addEventListener('DOMContentLoaded', function() {
-    const letters = document.getElementsByClassName('letter');
-    for (let i = 0; i < letters.length; i++) {
-        letters[i].addEventListener('click', function() {            
+    for (var i = 0; i < letterDivs.length; i++) {
+        letterDivs[i].addEventListener('click', function() {            
             if(!isPaused) {
                 if(this.style.backgroundColor === 'black'){
                     this.style.backgroundColor = '#f36900';
-                    document.getElementById('currentWord').textContent = document.getElementById('currentWord').textContent.replace(this.textContent, '');
+                    currentWord.textContent = currentWord.textContent.replace(this.textContent, '');
                 }
                 else {
                     this.style.backgroundColor = 'black';
-                    document.getElementById('currentWord').textContent += this.textContent;
+                    currentWord.textContent += this.textContent;
                 }
             }          
         });
     }
 });
 
-function changeColor() {
-    const letters = document.getElementsByClassName('letter');
-    for (let i = 0; i < letters.length; i++) {
-        letters[i].style.backgroundColor = '#f36900';
-    }
-}
-
-var cancelWord = document.getElementById('cancel');
+//Borrar la palabra actual.
 cancelWord.addEventListener('click', function() {
-    document.getElementById('currentWord').textContent = '';
+    currentWord.textContent = '';
     changeColor();
 });
 
-var submitWord = document.getElementById('submit');
+//Enviar la palabra actual y verificar la misma.
 submitWord.addEventListener('click', function() {
-    const currentWord = document.getElementById('currentWord').textContent;
     changeColor();
-    if (currentWord.length >= 3) {        
-        var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + currentWord;
+    if (currentWord.textContent.length >= 3) {        
+        var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + currentWord.textContent;
         fetch(url)
         .then(response => {
             if(response.status === 404){
-                document.getElementById('currentWord').textContent = '';
+                currentWord.textContent = '';
             }
             else{
-                var scoreTable = document.getElementById('scoreTable');
-                var rows = scoreTable.getElementsByTagName('tr');
                 var repeated = false;
-                for (let i = 2; i < rows.length; i++) {
-                    if(rows[i].getElementsByTagName('td')[0].textContent === currentWord){
+                for (var i = 2; i < rows.length; i++) {
+                    if(rows[i].getElementsByTagName('td')[0].textContent === currentWord.textContent){
                         repeated = true;
                     }
                 }
                 if(repeated){
-                    document.getElementById('currentWord').textContent = '';
+                    currentWord.textContent = '';
                 }
                 else{
-                    const currentWord = document.getElementById('currentWord').textContent;
-                    const totalPoints = document.getElementById('totalPoints');
-                    const newRow = document.createElement('tr');
-                    const wordCell = document.createElement('td');
-                    const scoreCell = document.createElement('td');
-                    wordCell.textContent = currentWord;
-                    scoreCell.textContent = calculateScore(currentWord);
+                    var newRow = document.createElement('tr');
+                    var wordCell = document.createElement('td');
+                    var scoreCell = document.createElement('td');
+                    wordCell.textContent = currentWord.textContent;
+                    scoreCell.textContent = calculateScore(currentWord.textContent);
                     totalPoints.textContent = parseInt(totalPoints.textContent) + parseInt(scoreCell.textContent);
                     newRow.appendChild(wordCell);
                     newRow.appendChild(scoreCell);
                     scoreTable.appendChild(newRow);
-                    document.getElementById('currentWord').textContent = '';
-                    function calculateScore(word) {
-                        let length = word.length;
-                        if (length === 3 || length === 4) {
-                            return 1;
-                        } else if (length === 5) {
-                            return 2;
-                        } else if (length === 6) {
-                            return 3;
-                        } else if (length === 7) {
-                            return 5;
-                        } else if (length >= 8) {
-                            return 11;
-                        } else {
-                            return 0;
-                        }
-                    }
+                    currentWord.textContent = '';
                 }
             }
         })
         .catch(() => { 
-            document.getElementById('currentWord').textContent = '';
+            currentWord.textContent = '';
         });
     }
     else{
-        document.getElementById('currentWord').textContent = '';
+        currentWord.textContent = '';
     }
 });
 
+//Calcula la puntuación de la palabra.
+function calculateScore(word) {
+    var length = word.length;
+    if (length === 3 || length === 4) {
+        return 1;
+    } else if (length === 5) {
+        return 2;
+    } else if (length === 6) {
+        return 3;
+    } else if (length === 7) {
+        return 5;
+    } else if (length >= 8) {
+        return 11;
+    } else {
+        return 0;
+    }
+}
+
+//Muestra el modal.
 function contentModal(título, mensaje){
-    var modal = document.querySelector('#modal');
     modal.style.display = 'block';
-    var modalTitle = document.querySelector('#modal h2');
     modalTitle.textContent = título;
-    var modalMessage = document.querySelector('#modal p');
     modalMessage.textContent = mensaje;
-    var modalOK = document.querySelector('.okBtn');
-    var modalNo = document.querySelector('.noBtn');
     modalOK.style.display = 'block';
     modalNo.style.display = 'block';
 }
-var okButton = document.querySelector('.okBtn');
-okButton.addEventListener('click', function() {
-    const userId = document.getElementById('userId').value;
-    const totalPoints = document.getElementById('totalPoints').textContent;
-    if(parseInt(totalPoints) > 0){
-        if (userId && totalPoints) {
-            const scores = JSON.parse(localStorage.getItem('scores')) || [];
-            const newScore = {
-                userId: userId,
-                points: totalPoints
+
+//Envía el puntaje del usuario.
+modalOK.addEventListener('click', function() {
+    if(parseInt(totalPoints.textContent) > 0){
+        if (userId.value && totalPoints.textContent) {
+            var scores = JSON.parse(localStorage.getItem('scores')) || [];
+            var newScore = {
+                userId: userId.value,
+                points: totalPoints.textContent
             };
             scores.push(newScore);
             localStorage.setItem('scores', JSON.stringify(scores));
@@ -264,12 +270,14 @@ okButton.addEventListener('click', function() {
     resetGame();
     closeModal();
 });
-var noButton = document.querySelector('.noBtn');
-noButton.addEventListener('click', function() {
+
+//Cierra el modal.
+function closeModal(){
+    modal.style.display = 'none';
+}
+
+//No envía el puntaje del usuario.
+modalNo.addEventListener('click', function() {
     closeModal();
     window.location.href = 'index.html';
 });
-function closeModal(){
-    var modal = document.querySelector('#modal');
-    modal.style.display = 'none';
-}

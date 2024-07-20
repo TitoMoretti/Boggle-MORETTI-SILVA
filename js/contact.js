@@ -1,3 +1,16 @@
+var nameInput = document.getElementById('nameId');
+var emailInput = document.getElementById('emailId');
+var messageInput = document.getElementById('messageId');
+var submitButton = document.getElementById('submitId');
+var modal = document.querySelector('#modal');
+var modalTitle = document.querySelector('#modal h2');
+var modalMessage = document.querySelector('#modal p');
+var modalOK = document.querySelector('.okBtn');
+var modalNo = document.querySelector('.noBtn');
+var closeBtn = document.querySelector('.closeBtn');
+var form = document.querySelector('form');
+
+//Llena los campos del formulario con los datos guardados en el localStorage.
 window.onload = function() {
     var userData = localStorage.getItem('userData');
     if (userData) {
@@ -12,7 +25,7 @@ window.onload = function() {
     messageInput.value = '';
 };
 
-var nameInput = document.getElementById('nameId');
+//Validación del Nombre.
 nameInput.addEventListener('blur', checkName);
 function checkName(){
     var name = nameInput.value;
@@ -38,12 +51,14 @@ function checkName(){
         }
     }
 }
+
+//Limpia el campo de Nombre.
 nameInput.addEventListener('focus', function(event) {
     event.target.value = '';
     focusError(event.target);
 });
 
-var emailInput = document.getElementById('emailId');
+//Validación del Email.
 emailInput.addEventListener('blur', checkEmail);
 function checkEmail(){
     var email = emailInput.value;
@@ -62,12 +77,14 @@ function checkEmail(){
         } 
     }
 }
+
+//Limpia el campo de Email.
 emailInput.addEventListener('focus', function(event) {
     event.target.value = '';
     focusError(event.target);
 });
 
-var messageInput = document.getElementById('messageId');
+//Validación del Mensaje.
 messageInput.addEventListener('blur', checkMessage);
 function checkMessage(){
     var message = messageInput.value;
@@ -79,30 +96,36 @@ function checkMessage(){
         return true;
     }
 }
+
+//Limpia el campo de Mensaje.
 messageInput.addEventListener('focus', function(event) {
     focusError(event.target);
 });
 
-var submitButton = document.getElementById('submitId');
+//Validación del Formulario.
 var success = false;
 submitButton.addEventListener('click', function(event) {
     if(nameInput.value === '' || emailInput === '' || messageInput === ''){
         event.preventDefault();
+        success = false;
         localStorage.removeItem('userData');
         contentModal('Error', 'Por favor complete todos los campos.');
     } else {
         if(!checkName()){
             event.preventDefault();
+            success = false;
             errorValidación(nameInput);
         }
         else{
             if(!checkEmail()){
                 event.preventDefault();
+                success = false;
                 errorValidación(emailInput);
             }
             else{
                 if(!checkMessage()){
                     event.preventDefault();
+                    success = false;
                     errorValidación(messageInput);
                 }
                 else{
@@ -113,16 +136,19 @@ submitButton.addEventListener('click', function(event) {
                         email: emailInput.value,
                     };
                     localStorage.setItem('userData', JSON.stringify(userData));
-                    contentModal('Todo parece correcto!', 'Está a punto de enviar el siguiente mensaje: ' + messageInput.value + '. ¿Desea continuar?');
+                    contentModal('Todo parece correcto!', 'Está a punto de enviar el siguiente mensaje: "' + messageInput.value + '". ¿Desea continuar "' + nameInput.value + '"?');
                 }
             }
         }  
     }
 });
 
+//Limpia el campo de error.
 function focusError(input){
     errorMessage(input, ' ');
 }
+
+//Muestra el mensaje de error.
 function errorMessage (input, message){
     var errorElement = document.getElementById('error' + input.id);
     if (message){
@@ -133,6 +159,8 @@ function errorMessage (input, message){
         errorElement.style.display = 'none';
     }
 }
+
+//Muestra el mensaje de error en el modal.
 function errorValidación(input){
     localStorage.removeItem('userData');
     var errorElement = document.getElementById('error' + input.id);
@@ -140,16 +168,11 @@ function errorValidación(input){
     contentModal('Error', mensaje);
 }
 
+//Muestra el modal.
 function contentModal(título, mensaje){
-    var modal = document.querySelector('#modal');
     modal.style.display = 'block';
-    var modalTitle = document.querySelector('#modal h2');
     modalTitle.textContent = título;
-    var modalMessage = document.querySelector('#modal p');
     modalMessage.textContent = mensaje;
-    var modalOK = document.querySelector('.okBtn');
-    var modalNo = document.querySelector('.noBtn');
-    var closeBtn = document.querySelector('.closeBtn');
     if(!success){
         modalOK.style.display = 'none';
         modalNo.style.display = 'none';
@@ -160,23 +183,23 @@ function contentModal(título, mensaje){
         closeBtn.style.display = 'none';
     }
 }
-var okButton = document.querySelector('.okBtn');
-okButton.addEventListener('click', function() {
-    var form = document.querySelector('form');
+
+//Envía el mensaje.
+modalOK.addEventListener('click', function() {
     form.action="mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&body=" + messageInput.value + "&cc=" + emailInput.value + "";
     form.submit();    
     closeModal();
 });
-var noButton = document.querySelector('.noBtn');
-noButton.addEventListener('click', function() {
+
+//Cancela el envío del mensaje.
+modalNo.addEventListener('click', function() {
     closeModal();
     localStorage.removeItem('userData');
 });
-var closeButton = document.querySelector('.closeBtn');
-closeButton.addEventListener('click', function() {
-    closeModal();
-});
+
+//Cierra el modal.
+closeBtn.addEventListener('click', closeModal);
+
 function closeModal(){
-    var modal = document.querySelector('#modal');
     modal.style.display = 'none';
 }
