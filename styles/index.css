@@ -87,6 +87,37 @@ main {
     text-align: center;
 }
 
+.scoreSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    box-shadow: 0 2px 5px #00000042;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 90%;
+}
+
+.scoreTable {
+    width: 100%;
+}
+
+.scoreTable th {
+    background-color: #f36900;
+    color: white;
+    padding: 10px;
+}
+
+.scoreTable td {
+    padding: 10px;
+    border: 1px solid #f36900;
+
+}
+
+.score {
+    width: 90%;
+}
+
 footer {
     background-color: #f36900;
     color: white;
@@ -145,6 +176,10 @@ footer {
     .imgContainer{
         margin-top: 15px;
     }
+
+    .scoreTable {
+        width: 50%;
+    }
 }
 
 /*Desktop*/
@@ -182,5 +217,9 @@ footer {
 
     .imgContainer{
         margin-top: 15px;
+    }
+
+    .score {
+        width: 25%;
     }
 }

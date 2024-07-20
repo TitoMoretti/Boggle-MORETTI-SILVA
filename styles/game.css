@@ -205,8 +205,6 @@ button:hover {
     width: 90%;
 }
 
-
-
 /*Tablet*/
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .game {
@@ -216,8 +214,6 @@ button:hover {
     .scoreTable {
         width: 50%;
     }
-
-
 }
 
 /*Desktop*/
