@@ -2,6 +2,7 @@ var countdown;
 var timeLeft = 3 * 60;
 var isPaused = false;
 var gameStarted = false;
+
 var timerDisplay = document.getElementById('timer');
 var startButton = document.getElementById('startButton');
 var controlButtons = document.getElementById('controlButtons');
@@ -19,14 +20,19 @@ var submitWord = document.getElementById('submit');
 var modal = document.querySelector('#modal');
 var modalTitle = document.querySelector('#modal h2');
 var modalMessage = document.querySelector('#modal p');
+var userId = document.getElementById('userId');
+var modalWarning = document.getElementById('modalWarning');
+var closeBtn = document.querySelector('.closeBtn');
 var modalOK = document.querySelector('.okBtn');
 var modalNo = document.querySelector('.noBtn');
 var userId = document.getElementById('userId');
+var messageSign = document.getElementById('messageSign');
 
 //Prepara el juego para ser jugado.
 window.onload = function() {
     updateScores();
     resetGame();
+    allowButtons(false);
 };
 
 //Actualiza la tabla de puntuación.
@@ -54,9 +60,11 @@ startButton.addEventListener('click', function() {
     startButton.classList.add('hidden');
     controlButtons.classList.remove('hidden');
     isPaused = false;
+    cleanMessageSign();
     startTimer();
     gameStarted = true;
     shuffleBoard();
+    allowButtons(true);
     emptyTable();
 });
 
@@ -71,10 +79,10 @@ function startTimer() {
             clearInterval(countdown);
             timerDisplay.textContent = '00:00';
             if(parseInt(totalPoints.textContent) > 0){
-                contentModal('Fin del juego', 'Se acabó el tiempo y usted ha obtenido "' + totalPoints.textContent + '" puntos!!! ¿Desea enviar su puntaje?');
+                contentModal('Fin del juego', 'Se acabó el tiempo y usted ha obtenido "' + totalPoints.textContent + '" puntos!!! Si desea enviar su puntaje, por favor, ingrese su nombre de usuario y haga clic en "Si". De lo contrario, haga clic en "No". Gracias por jugar!!!');
             }
             else{
-                contentModal('Fin del juego', 'Se acabó el tiempo. No ha obtenido puntos suficientes para enviar su puntaje. Por favor, inténtelo de nuevo.');
+                contentModal('Fin del juego', 'Se acabó el tiempo. No ha obtenido ningún punto. Por favor, inténtelo de nuevo.');
             }
         }
     }, 1000);
@@ -107,6 +115,19 @@ function emptyTable() {
     }
 }
 
+//Habilita o deshabilita los botones del juego.
+function allowButtons(allowed) {
+    if(allowed){
+        shuffleButton.disabled = false;
+        cancelWord.disabled = false; 
+        submitWord.disabled = false;
+    } else {
+        shuffleButton.disabled = true;
+        cancelWord.disabled = true; 
+        submitWord.disabled = true;
+    }
+}
+
 //Pausa el juego.
 pauseButton.addEventListener('click', function() {
     if (isPaused) {
@@ -115,6 +136,7 @@ pauseButton.addEventListener('click', function() {
         for (var i = 0; i < letterDivs.length; i++) {
             letterDivs[i].style.color = 'white';
         }
+        allowButtons(true);
     } else {
         for (var i = 0; i < letterDivs.length; i++) {
             letterDivs[i].style.backgroundColor = '#f36900';
@@ -123,6 +145,7 @@ pauseButton.addEventListener('click', function() {
         currentWord.textContent = '';
         clearInterval(countdown);
         pauseButton.textContent = 'Continuar';
+        allowButtons(false);
     }
     isPaused = !isPaused;
 });
@@ -138,9 +161,11 @@ function resetGame() {
     isPaused = true;
     pauseButton.textContent = 'Pausar';
     currentWord.textContent = '';
+    cleanMessageSign();
     changeColor();
     gameStarted = false;
     emptyBoard();
+    allowButtons(false);
     emptyTable();
 }
 
@@ -171,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 else {
                     this.style.backgroundColor = 'black';
                     currentWord.textContent += this.textContent;
+                    cleanMessageSign();
                 }
             }          
         });
@@ -186,42 +212,52 @@ cancelWord.addEventListener('click', function() {
 //Enviar la palabra actual y verificar la misma.
 submitWord.addEventListener('click', function() {
     changeColor();
-    if (currentWord.textContent.length >= 3) {        
-        var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + currentWord.textContent;
-        fetch(url)
-        .then(response => {
-            if(response.status === 404){
-                currentWord.textContent = '';
-            }
-            else{
-                var repeated = false;
-                for (var i = 2; i < rows.length; i++) {
-                    if(rows[i].getElementsByTagName('td')[0].textContent === currentWord.textContent){
-                        repeated = true;
-                    }
-                }
-                if(repeated){
+    if (currentWord.textContent !== '') {
+        if (currentWord.textContent.length >= 3) {        
+            var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + currentWord.textContent;
+            fetch(url)
+            .then(response => {
+                if(response.status === 404){
+                    Message(false, 'La palabra no es una palabra válida.');
                     currentWord.textContent = '';
                 }
                 else{
-                    var newRow = document.createElement('tr');
-                    var wordCell = document.createElement('td');
-                    var scoreCell = document.createElement('td');
-                    wordCell.textContent = currentWord.textContent;
-                    scoreCell.textContent = calculateScore(currentWord.textContent);
-                    totalPoints.textContent = parseInt(totalPoints.textContent) + parseInt(scoreCell.textContent);
-                    newRow.appendChild(wordCell);
-                    newRow.appendChild(scoreCell);
-                    scoreTable.appendChild(newRow);
-                    currentWord.textContent = '';
+                    var repeated = false;
+                    for (var i = 2; i < rows.length; i++) {
+                        if(rows[i].getElementsByTagName('td')[0].textContent === currentWord.textContent){
+                            repeated = true;
+                        }
+                    }
+                    if(repeated){
+                        Message(false, 'La palabra ya ha sido insertada.');
+                        currentWord.textContent = '';
+                    }
+                    else{
+                        var newRow = document.createElement('tr');
+                        var wordCell = document.createElement('td');
+                        var scoreCell = document.createElement('td');
+                        wordCell.textContent = currentWord.textContent;
+                        scoreCell.textContent = calculateScore(currentWord.textContent);
+                        totalPoints.textContent = parseInt(totalPoints.textContent) + parseInt(scoreCell.textContent);
+                        newRow.appendChild(wordCell);
+                        newRow.appendChild(scoreCell);
+                        scoreTable.appendChild(newRow);
+                        Message(true, 'La palabra es válida. Sigue así!!!');
+                        currentWord.textContent = '';
+                    }
                 }
-            }
-        })
-        .catch(() => { 
+            })
+            .catch(() => { 
+                Message(false, 'La palabra no es una palabra válida.');
+                currentWord.textContent = '';
+            });
+        }
+        else{
+            Message(false, 'La palabra debe tener al menos 3 letras.');
             currentWord.textContent = '';
-        });
-    }
-    else{
+        }
+    } else {
+        Message(false, 'Por favor, ingrese una palabra.');
         currentWord.textContent = '';
     }
 });
@@ -244,32 +280,80 @@ function calculateScore(word) {
     }
 }
 
+//Limpia el campo de error.
+function cleanMessageSign(){
+    messageSign.textContent = ' ';
+}
+
+//Muestra el mensaje de error.
+function Message (valido, message){
+    messageSign.textContent = message;
+    if (!valido){
+        messageSign.style.color = 'red';
+    } else {
+        messageSign.style.color = 'green';
+    }
+    messageSign.style.display = 'block';
+}
+
 //Muestra el modal.
 function contentModal(título, mensaje){
     modal.style.display = 'block';
     modalTitle.textContent = título;
     modalMessage.textContent = mensaje;
-    modalOK.style.display = 'block';
-    modalNo.style.display = 'block';
+    modalWarning.style.display = 'none';
+    if(parseInt(totalPoints.textContent) > 0){
+        userId.style.display = 'block';
+        userId.value = '';
+        modalOK.style.display = 'block';
+        modalNo.style.display = 'block';
+        closeBtn.style.display = 'none';
+    } else {
+        userId.style.display = 'none';
+        modalOK.style.display = 'none';
+        modalNo.style.display = 'none';
+        closeBtn.style.display = 'block';
+    }
 }
+
+//Verifica el campo de usuario.
+userId.addEventListener('focus', function() {
+    modalWarning.style.display = 'none';
+});
 
 //Envía el puntaje del usuario.
 modalOK.addEventListener('click', function() {
-    if(parseInt(totalPoints.textContent) > 0){
-        if (userId.value && totalPoints.textContent) {
+    if (userId.value) {
+        if (totalPoints.textContent) {
             var scores = JSON.parse(localStorage.getItem('scores')) || [];
-            var newScore = {
-                userId: userId.value,
-                points: totalPoints.textContent
-            };
-            scores.push(newScore);
+            var existingScore = scores.find(function(score) {
+                return score.userId === userId.value;
+            });
+            if (existingScore) {
+                if (parseInt(totalPoints.textContent) > parseInt(existingScore.points)) {
+                    existingScore.points = totalPoints.textContent;
+                }
+            } else {
+                var newScore = {
+                    userId: userId.value,
+                    points: totalPoints.textContent
+                };
+                scores.push(newScore);
+            }
             localStorage.setItem('scores', JSON.stringify(scores));
             updateScores();
         }
+        resetGame();
+        closeModal();
+    } else {
+        modalWarning.textContent = 'Por favor, ingrese su nombre de usuario.';
+        modalWarning.style.color = 'red';
+        modalWarning.style.display = 'block';
     }
-    resetGame();
-    closeModal();
 });
+
+//Cierra el modal.
+closeBtn.addEventListener('click', closeModal);
 
 //Cierra el modal.
 function closeModal(){
