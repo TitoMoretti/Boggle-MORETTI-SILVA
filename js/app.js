@@ -426,6 +426,7 @@ submitWord.addEventListener('click', function() {
                         currentWord.textContent = '';
                     }
                     else{
+                        // Agrega la nueva palabra a la tabla
                         var newRow = document.createElement('tr');
                         var wordCell = document.createElement('td');
                         var scoreCell = document.createElement('td');
@@ -435,6 +436,15 @@ submitWord.addEventListener('click', function() {
                         newRow.appendChild(wordCell);
                         newRow.appendChild(scoreCell);
                         scoreTable.appendChild(newRow);
+                        
+                        // Limpia el estilo de todas las filas
+                        for (var i = 2; i < rows.length; i++) {
+                            rows[i].getElementsByTagName('td')[0].style.fontWeight = 'normal';
+                        }
+                        
+                        // Aplica negrita a la última palabra agregada
+                        wordCell.style.fontWeight = 'bold';
+                        
                         Message(true, 'La palabra es válida. Sigue así!!!');
                         currentWord.textContent = '';
                     }
