@@ -98,6 +98,7 @@ function shuffleBoard() {
             var randomIndex = Math.floor(Math.random() * letters.length);
             var randomLetter = letters[randomIndex];
             letterDiv.textContent = randomLetter;
+            letterDiv.style.color = 'white';
         }
         changeColor();
         currentWord.textContent = '';
@@ -190,18 +191,128 @@ document.addEventListener('DOMContentLoaded', function() {
         letterDivs[i].addEventListener('click', function() {            
             if(!isPaused) {
                 if(this.style.backgroundColor === 'black'){
+                    changeColor();
                     this.style.backgroundColor = '#f36900';
-                    currentWord.textContent = currentWord.textContent.replace(this.textContent, '');
+                    currentWord.textContent = '';
+                    cleanMessageSign();
                 }
                 else {
-                    this.style.backgroundColor = 'black';
-                    currentWord.textContent += this.textContent;
                     cleanMessageSign();
+                    if (currentWord.textContent === '') {
+                        changeColor();
+                        this.style.backgroundColor = 'black';
+                        currentWord.textContent += this.textContent;
+                        highlightWords(this);
+                    } else {
+                        if (checkLastWord(this)) {
+                            changeColor();
+                            this.style.backgroundColor = 'black';
+                            currentWord.textContent += this.textContent;
+                            highlightWords(this);
+                        }
+                        else {
+                            Message(false, 'La letra seleccionada no es válida.');
+                        }  
+                    }
                 }
             }          
         });
     }
 });
+
+function checkLastWord(clickedLetter) {
+    var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
+    var rows = Math.sqrt(letterDivs.length);
+    var cols = rows;
+    var close = false;
+    if (clickedIndex >= cols) {
+        var topIndex = clickedIndex - cols;
+        if (letterDivs[topIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if (clickedIndex < (rows - 1) * cols) {
+        var bottomIndex = clickedIndex + cols;
+        if (letterDivs[bottomIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if (clickedIndex % cols !== 0) {
+        var leftIndex = clickedIndex - 1;
+        if (letterDivs[leftIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if ((clickedIndex + 1) % cols !== 0) {
+        var rightIndex = clickedIndex + 1;
+        if (letterDivs[rightIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if (clickedIndex >= cols && clickedIndex % cols !== 0) {
+        var topLeftIndex = clickedIndex - cols - 1;
+        if (letterDivs[topLeftIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if (clickedIndex >= cols && (clickedIndex + 1) % cols !== 0) {
+        var topRightIndex = clickedIndex - cols + 1;
+        if (letterDivs[topRightIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if (clickedIndex < (rows - 1) * cols && clickedIndex % cols !== 0) {
+        var bottomLeftIndex = clickedIndex + cols - 1;
+        if (letterDivs[bottomLeftIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    if (clickedIndex < (rows - 1) * cols && (clickedIndex + 1) % cols !== 0) {
+        var bottomRightIndex = clickedIndex + cols + 1;
+        if (letterDivs[bottomRightIndex].style.backgroundColor === 'black') {
+            close = true;
+        }
+    }
+    return close;
+}
+
+function highlightWords(clickedLetter) {
+    var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
+    var rows = Math.sqrt(letterDivs.length);
+    var cols = rows;
+    if (clickedIndex >= cols) {
+        var topIndex = clickedIndex - cols;
+        letterDivs[topIndex].style.backgroundColor = 'red';
+    }
+    if (clickedIndex < (rows - 1) * cols) {
+        var bottomIndex = clickedIndex + cols;
+        letterDivs[bottomIndex].style.backgroundColor = 'red';
+    }
+    if (clickedIndex % cols !== 0) {
+        var leftIndex = clickedIndex - 1;
+        letterDivs[leftIndex].style.backgroundColor = 'red';
+    }
+    if ((clickedIndex + 1) % cols !== 0) {
+        var rightIndex = clickedIndex + 1;
+        letterDivs[rightIndex].style.backgroundColor = 'red';
+    }
+    if (clickedIndex >= cols && clickedIndex % cols !== 0) {
+        var topLeftIndex = clickedIndex - cols - 1;
+        letterDivs[topLeftIndex].style.backgroundColor = 'red';
+    }
+    if (clickedIndex >= cols && (clickedIndex + 1) % cols !== 0) {
+        var topRightIndex = clickedIndex - cols + 1;
+        letterDivs[topRightIndex].style.backgroundColor = 'red';
+    }
+    if (clickedIndex < (rows - 1) * cols && clickedIndex % cols !== 0) {
+        var bottomLeftIndex = clickedIndex + cols - 1;
+        letterDivs[bottomLeftIndex].style.backgroundColor = 'red';
+    }
+    if (clickedIndex < (rows - 1) * cols && (clickedIndex + 1) % cols !== 0) {
+        var bottomRightIndex = clickedIndex + cols + 1;
+        letterDivs[bottomRightIndex].style.backgroundColor = 'red';
+    }
+}
 
 //Borrar la palabra actual.
 cancelWord.addEventListener('click', function() {
@@ -219,6 +330,7 @@ submitWord.addEventListener('click', function() {
             .then(response => {
                 if(response.status === 404){
                     Message(false, 'La palabra no es una palabra válida.');
+                    substrackPoint();
                     currentWord.textContent = '';
                 }
                 else{
@@ -230,6 +342,7 @@ submitWord.addEventListener('click', function() {
                     }
                     if(repeated){
                         Message(false, 'La palabra ya ha sido insertada.');
+                        substrackPoint();
                         currentWord.textContent = '';
                     }
                     else{
@@ -249,15 +362,18 @@ submitWord.addEventListener('click', function() {
             })
             .catch(() => { 
                 Message(false, 'La palabra no es una palabra válida.');
+                substrackPoint();
                 currentWord.textContent = '';
             });
         }
         else{
             Message(false, 'La palabra debe tener al menos 3 letras.');
+            substrackPoint();
             currentWord.textContent = '';
         }
     } else {
         Message(false, 'Por favor, ingrese una palabra.');
+        substrackPoint();
         currentWord.textContent = '';
     }
 });
@@ -277,6 +393,14 @@ function calculateScore(word) {
         return 11;
     } else {
         return 0;
+    }
+}
+
+function substrackPoint(){
+    if(parseInt(totalPoints.textContent) === 0){
+        shuffleBoard();
+    } else {
+        totalPoints.textContent = parseInt(totalPoints.textContent) - 1;
     }
 }
 
