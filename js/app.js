@@ -13,6 +13,9 @@ var totalPoints = document.getElementById('totalPoints');
 var shuffleButton = document.getElementById('shuffle');
 var dice = document.getElementById('dice');
 var letterDivs = dice.getElementsByClassName('letter');
+var orderAlpha = document.getElementById('orderAlpha');
+var orderScore = document.getElementById('regularOrder');
+var orderDate = document.getElementById('orderDate');
 var scoreTable = document.getElementById('scoreTable');
 var rows = scoreTable.getElementsByTagName('tr');
 var cancelWord = document.getElementById('cancel');
@@ -30,30 +33,58 @@ var messageSign = document.getElementById('messageSign');
 
 //Prepara el juego para ser jugado.
 window.onload = function() {
-    updateScores();
+    updateScores('orderScore');
     resetGame();
     allowButtons(false);
 };
 
 //Actualiza la tabla de puntuación.
-function updateScores () {
+function updateScores (condition) {
     var scoreTable = document.querySelector('.scoreTable');
-    scoreTable.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th></tr>';
+    scoreTable.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
     var scores = JSON.parse(localStorage.getItem('scores')) || [];
-    scores.sort(function(a, b) {
-        return b.points - a.points;
-    });
+    if(condition === 'orderAlpha'){
+        scores.sort(function(a, b) {
+            return a.userId.localeCompare(b.userId);
+        });
+    }
+    if(condition === 'orderScore'){
+        scores.sort(function(a, b) {
+            return b.points - a.points;
+        });
+    }
+    if(condition === 'orderDate'){
+        //REVISAR ESTO
+        scores.sort(function(a, b) {
+            return new Date(b.date) - new Date(a.date);
+        });
+    }
     scores.forEach(function(score) {
         var row = document.createElement('tr');
         var nameCell = document.createElement('td');
         var scoreCell = document.createElement('td');
+        var dateCell = document.createElement('td');
         nameCell.textContent = score.userId;
         scoreCell.textContent = score.points;
+        dateCell.textContent = score.date;
         row.appendChild(nameCell);
         row.appendChild(scoreCell);
+        row.appendChild(dateCell);
         scoreTable.appendChild(row);
     });
 }
+
+//Ordena la tabla de puntuación.
+orderAlpha.addEventListener('click', function() {
+    updateScores('orderAlpha');
+});
+orderScore.addEventListener('click', function() {
+    updateScores('orderScore');
+});
+orderDate.addEventListener('click', function() {
+    updateScores('orderDate');
+});
+
 
 //Inicio del juego.
 startButton.addEventListener('click', function() {
@@ -174,6 +205,7 @@ function resetGame() {
 function changeColor() {
     for (var i = 0; i < letterDivs.length; i++) {
         letterDivs[i].style.backgroundColor = '#f36900';
+        letterDivs[i].style.fontWeight = 'normal';
     }
 }
 
@@ -202,12 +234,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         changeColor();
                         this.style.backgroundColor = 'black';
                         currentWord.textContent += this.textContent;
+                        this.style.fontWeight = 'bold';
                         highlightWords(this);
                     } else {
-                        if (checkLastWord(this)) {
-                            changeColor();
+                        if (checkLastWord(this)) {                            
                             this.style.backgroundColor = 'black';
                             currentWord.textContent += this.textContent;
+                            this.style.fontWeight = 'bold';
                             highlightWords(this);
                         }
                         else {
@@ -277,40 +310,63 @@ function checkLastWord(clickedLetter) {
 }
 
 function highlightWords(clickedLetter) {
+    for (var i = 0; i < letterDivs.length; i++) {
+        if (letterDivs[i].style.backgroundColor === 'black') {
+            letterDivs[i].style.backgroundColor = 'black';
+        } else {
+            letterDivs[i].style.backgroundColor = '#f36900';
+        }
+    }
     var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
     var rows = Math.sqrt(letterDivs.length);
     var cols = rows;
     if (clickedIndex >= cols) {
         var topIndex = clickedIndex - cols;
-        letterDivs[topIndex].style.backgroundColor = 'red';
+        if(letterDivs[topIndex].style.backgroundColor !== 'black'){
+            letterDivs[topIndex].style.backgroundColor = 'red';
+        }
     }
     if (clickedIndex < (rows - 1) * cols) {
         var bottomIndex = clickedIndex + cols;
-        letterDivs[bottomIndex].style.backgroundColor = 'red';
+        if(letterDivs[bottomIndex].style.backgroundColor !== 'black'){
+            letterDivs[bottomIndex].style.backgroundColor = 'red';
+        }
     }
     if (clickedIndex % cols !== 0) {
         var leftIndex = clickedIndex - 1;
-        letterDivs[leftIndex].style.backgroundColor = 'red';
+        if(letterDivs[leftIndex].style.backgroundColor !== 'black'){
+            letterDivs[leftIndex].style.backgroundColor = 'red';
+        }
     }
     if ((clickedIndex + 1) % cols !== 0) {
         var rightIndex = clickedIndex + 1;
-        letterDivs[rightIndex].style.backgroundColor = 'red';
+        if(letterDivs[rightIndex].style.backgroundColor !== 'black'){
+            letterDivs[rightIndex].style.backgroundColor = 'red';
+        }
     }
     if (clickedIndex >= cols && clickedIndex % cols !== 0) {
         var topLeftIndex = clickedIndex - cols - 1;
-        letterDivs[topLeftIndex].style.backgroundColor = 'red';
+        if(letterDivs[topLeftIndex].style.backgroundColor !== 'black'){
+            letterDivs[topLeftIndex].style.backgroundColor = 'red';
+        }
     }
     if (clickedIndex >= cols && (clickedIndex + 1) % cols !== 0) {
         var topRightIndex = clickedIndex - cols + 1;
-        letterDivs[topRightIndex].style.backgroundColor = 'red';
+        if(letterDivs[topRightIndex].style.backgroundColor !== 'black'){
+            letterDivs[topRightIndex].style.backgroundColor = 'red';
+        }
     }
     if (clickedIndex < (rows - 1) * cols && clickedIndex % cols !== 0) {
         var bottomLeftIndex = clickedIndex + cols - 1;
-        letterDivs[bottomLeftIndex].style.backgroundColor = 'red';
+        if(letterDivs[bottomLeftIndex].style.backgroundColor !== 'black'){
+            letterDivs[bottomLeftIndex].style.backgroundColor = 'red';
+        }
     }
     if (clickedIndex < (rows - 1) * cols && (clickedIndex + 1) % cols !== 0) {
         var bottomRightIndex = clickedIndex + cols + 1;
-        letterDivs[bottomRightIndex].style.backgroundColor = 'red';
+        if(letterDivs[bottomRightIndex].style.backgroundColor !== 'black'){
+            letterDivs[bottomRightIndex].style.backgroundColor = 'red';
+        }
     }
 }
 
@@ -401,6 +457,13 @@ function substrackPoint(){
         shuffleBoard();
     } else {
         totalPoints.textContent = parseInt(totalPoints.textContent) - 1;
+        var lenght = rows.length;
+        for (var i = lenght - 1; i > 1; i--) {
+            if(rows[i].getElementsByTagName('td')[1].textContent === '1'){
+                scoreTable.removeChild(rows[i]);
+                break;
+            }
+        }
     }
 }
 
@@ -460,12 +523,13 @@ modalOK.addEventListener('click', function() {
             } else {
                 var newScore = {
                     userId: userId.value,
-                    points: totalPoints.textContent
+                    points: totalPoints.textContent,
+                    date: new Date().toLocaleString()
                 };
                 scores.push(newScore);
             }
             localStorage.setItem('scores', JSON.stringify(scores));
-            updateScores();
+            updateScores('orderScore');
         }
         resetGame();
         closeModal();

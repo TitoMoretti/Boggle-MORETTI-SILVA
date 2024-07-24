@@ -171,12 +171,20 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-self: center;
     margin-top: 1rem;
     box-shadow: 0 2px 5px #00000042;
     padding: 1rem;
     border-radius: 1rem;
     width: 90%;
+}
 
+.scoreOrder{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .scoreTable {
@@ -204,8 +212,18 @@ button:hover {
         flex-direction: column;
         gap: 25px;
     }
+
     .scoreTable {
-        width: 50%;
+        max-width: 627px;
+    }
+
+    .scoreSection {
+        max-width: 596px;
+        margin: 0 auto;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
     }
 }
 
@@ -218,7 +236,20 @@ button:hover {
         width: 100%;
     }
 
+    .scoreTable {
+        max-width: 627px;
+    }
+
     .score {
-        width: 25%;
+        max-width: 627px;
+    }
+
+    .scoreSection {
+        max-width: 596px;
+        margin: 0 auto;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
     }
 }
