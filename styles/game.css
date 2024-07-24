@@ -23,7 +23,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    }
+}
 
 #timer {
     font-size: 3em;
@@ -198,42 +198,6 @@ button:hover {
     width: 90%;
 }
 
-/* Estilo para el selector */
-.timeSelect {
-    background-color: white;
-    color: black;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-}
-
-/* Cambiar el color cuando se hace hover */
-.timeSelect:hover {
-    background-color: #f36900;
-    color: white;
-}
-
-/* Cambiar el color cuando está enfocado (seleccionado) */
-.timeSelect:focus {
-    background-color: #f36900;
-    color: white;
-    outline: none; /* Eliminar el borde por defecto del navegador */
-}
-
-/* Cambiar el color de las opciones del selector cuando están seleccionadas */
-.timeSelect option {
-    background-color: white;
-    color: black;
-}
-
-/* Cambiar el color de la opción seleccionada */
-.timeSelect option:checked {
-    background-color: #f36900;
-    color: white;
-}
-
 /*Tablet*/
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .game {
@@ -249,7 +213,7 @@ button:hover {
 @media screen and (min-width: 1024px) {
     .game {
         flex-direction: row;
-        justify-content: space-around;
+        gap: 100px;
         height: 68vh;
         width: 100%;
     }
