@@ -38,6 +38,15 @@ window.onload = function() {
     allowButtons(false);
 };
 
+var timerSelect = document.getElementById('timerSelect');
+
+// Actualiza el temporizador basado en la selección del usuario.
+timerSelect.addEventListener('change', function() {
+    if (!gameStarted) { // Solo permite cambiar el tiempo si el juego no ha comenzado.
+        timeLeft = parseInt(timerSelect.value) * 60;
+        timerDisplay.textContent = `${String(Math.floor(timeLeft / 60)).padStart(2, '0')}:${String(timeLeft % 60).padStart(2, '0')}`;
+    }
+});
 //Actualiza la tabla de puntuación.
 function updateScores (condition) {
     var scoreTable = document.querySelector('.scoreTable');
@@ -97,6 +106,7 @@ startButton.addEventListener('click', function() {
     shuffleBoard();
     allowButtons(true);
     emptyTable();
+    timerSelect.disabled = true; // Desactiva el selector de tiempo.
 });
 
 //Inicio del temporizador.
@@ -186,8 +196,8 @@ pauseButton.addEventListener('click', function() {
 resetButton.addEventListener('click', resetGame);
 function resetGame() {
     clearInterval(countdown);
-    timeLeft = 3 * 60;
-    timerDisplay.textContent = '03:00';
+    timeLeft = parseInt(timerSelect.value) * 60; // Usa el valor seleccionado del temporizador.
+    timerDisplay.textContent = `${String(Math.floor(timeLeft / 60)).padStart(2, '0')}:${String(timeLeft % 60).padStart(2, '0')}`;
     startButton.classList.remove('hidden');
     controlButtons.classList.add('hidden');
     isPaused = true;
@@ -199,6 +209,7 @@ function resetGame() {
     emptyBoard();
     allowButtons(false);
     emptyTable();
+    timerSelect.disabled = false; // Vuelve a habilitar el selector de tiempo.
 }
 
 //Cambia el color de fondo de las letras.
