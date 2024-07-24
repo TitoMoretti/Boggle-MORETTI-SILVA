@@ -22,7 +22,16 @@
             <div class="timerShuffle">
                 <div class="container">
                     <h1>Temporizador</h1>
-                    <div id="timer"></div>
+                    <div id="timer">03:00</div>
+                    <div class="timerSelect">
+
+                        <label for="timerSelect">Elegir Tiempo: </label>
+                        <select id="timerSelect">
+                            <option value="1">1 minuto</option>
+                            <option value="2">2 minutos</option>
+                            <option value="3" selected>3 minutos</option>
+                        </select>
+                    </div>
                     <button id="startButton">Iniciar Temporizador</button>
                     <div id="controlButtons" class="hidden">
                         <button id="pauseButton">Pausar</button>
