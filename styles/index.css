@@ -42,7 +42,7 @@ main {
     margin-top: 40px;
 }
 
-#playGame button, #contact button {
+#playGame button, #contact button{
     background-color: #f36900;
     width: 25%;
     color: white;
@@ -60,6 +60,21 @@ main {
 }
 
 #contact button:hover {
+    background-color: #000000;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    background-color: #f36900;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
     background-color: #000000;
 }
 
@@ -116,6 +131,14 @@ main {
 
 .score {
     width: 90%;
+}
+
+.scoreOrder{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
 }
 
 footer {
@@ -178,7 +201,11 @@ footer {
     }
 
     .scoreTable {
-        width: 50%;
+        max-width: 627px;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
     }
 }
 
@@ -219,7 +246,11 @@ footer {
         margin-top: 15px;
     }
 
-    .score {
-        width: 25%;
+    .scoreTable {
+        max-width: 627px;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
     }
 }
