@@ -115,6 +115,16 @@ function startTimer() {
         var minutes = Math.floor(timeLeft / 60);
         var seconds = timeLeft % 60;
         timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        
+        // Aplica el estilo si el tiempo es menor o igual a 10 segundos.
+        if (timeLeft <= 10) {
+            timerDisplay.style.color = 'red';
+            timerDisplay.style.fontWeight = 'bold';
+        } else {
+            timerDisplay.style.color = ''; // Restablece el color por defecto.
+            timerDisplay.style.fontWeight = ''; // Restablece el peso de fuente por defecto.
+        }
+        
         timeLeft--;
         if (timeLeft < 0) {
             clearInterval(countdown);
@@ -128,6 +138,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 //Baraja las letras.
 shuffleButton.addEventListener('click', shuffleBoard);
@@ -203,6 +214,8 @@ function resetGame() {
     isPaused = true;
     pauseButton.textContent = 'Pausar';
     currentWord.textContent = '';
+    timerDisplay.style.color = ''; // Restablece el color por defecto.
+    timerDisplay.style.fontWeight = ''; // Restablece el peso de fuente por defecto.
     cleanMessageSign();
     changeColor();
     gameStarted = false;
