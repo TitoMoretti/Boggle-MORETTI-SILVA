@@ -93,7 +93,14 @@ function checkMessage(){
         return false;
     }
     else{
-        return true;
+        var regex = /^[a-zA-Z0-9\s]{5,}$/;
+        if (!regex.test(message)) {
+            errorMessage(messageInput, 'El campo del Mensaje debe tener al menos 5 caracteres.')
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }
 
