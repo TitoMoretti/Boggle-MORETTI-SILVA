@@ -21,13 +21,17 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
 
 #timer {
     font-size: 3em;
     margin: 20px 0;
+}
+
+#timerSelect{
+    font-weight: bold;
 }
 
 button {
@@ -95,13 +99,27 @@ button:hover {
     padding-top: 15px;
 }
 
+#buttonsConfirmCancel{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
 #messageSign {
     margin-top: -30px;
     margin-bottom: 20px;
 }
 
+#wordList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 #scoreTable {
+    margin-bottom: 20px;
     margin-top: 20px;
+
 }
 
 #modal{
@@ -136,7 +154,6 @@ button:hover {
     position: absolute;
     right: 10px;
     top: 10px;
-    width: 85px;
 }
 
 .userLabel {
@@ -187,33 +204,33 @@ button:hover {
     gap: 10px;
 }
 
-.scoreTable {
+.ranking {
     width: 100%;
 }
 
-.scoreTable th {
+.ranking th, #scoreTable th {
     background-color: #f36900;
     color: white;
     padding: 10px;
 }
 
-.scoreTable td {
+.ranking td, #scoreTable td {
     padding: 10px;
     border: 1px solid #f36900;
 
 }
+
 .score {
     width: 90%;
 }
 
 .timerSelect{
-margin: 1rem;
+    margin: 1rem;
 }
 
 .timerSelect select {
     padding: .5rem;
 }
-
 
 .timerSelect option {
     padding: .5rem;
@@ -235,7 +252,11 @@ margin: 1rem;
         gap: 25px;
     }
 
-    .scoreTable {
+    #scoreTable {
+        margin-bottom: 20px;
+    }
+
+    .ranking {
         max-width: 627px;
     }
 
@@ -258,7 +279,15 @@ margin: 1rem;
         width: 100%;
     }
 
-    .scoreTable {
+    #wordList {
+        justify-content: flex-start;
+    }
+
+    #scoreTable {
+        margin-bottom: 0px;
+    }
+
+    .ranking {
         max-width: 627px;
     }
 

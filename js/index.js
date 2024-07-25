@@ -1,6 +1,7 @@
 var orderAlpha = document.getElementById('orderAlpha');
 var orderScore = document.getElementById('regularOrder');
 var orderDate = document.getElementById('orderDate');
+var ranking = document.querySelector('.ranking');
 
 window.onload = function() {
     updateScores('orderScore');
@@ -8,8 +9,7 @@ window.onload = function() {
 
 //Actualiza la tabla de puntuación.
 function updateScores (condition) {
-    var scoreTable = document.querySelector('.scoreTable');
-    scoreTable.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
+    ranking.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
     var scores = JSON.parse(localStorage.getItem('scores')) || [];
     if(condition === 'orderAlpha'){
         scores.sort(function(a, b) {
@@ -22,7 +22,6 @@ function updateScores (condition) {
         });
     }
     if(condition === 'orderDate'){
-        //REVISAR ESTO
         scores.sort(function(a, b) {
             return new Date(b.date) - new Date(a.date);
         });
@@ -38,7 +37,7 @@ function updateScores (condition) {
         row.appendChild(nameCell);
         row.appendChild(scoreCell);
         row.appendChild(dateCell);
-        scoreTable.appendChild(row);
+        ranking.appendChild(row);
     });
 }
 

@@ -3,6 +3,7 @@ var timeLeft = 3 * 60;
 var isPaused = false;
 var gameStarted = false;
 
+var timerSelect = document.getElementById('timerSelect');
 var timerDisplay = document.getElementById('timer');
 var startButton = document.getElementById('startButton');
 var controlButtons = document.getElementById('controlButtons');
@@ -20,9 +21,11 @@ var scoreTable = document.getElementById('scoreTable');
 var rows = scoreTable.getElementsByTagName('tr');
 var cancelWord = document.getElementById('cancel');
 var submitWord = document.getElementById('submit');
+var ranking = document.querySelector('.ranking');
 var modal = document.querySelector('#modal');
 var modalTitle = document.querySelector('#modal h2');
 var modalMessage = document.querySelector('#modal p');
+var userLabel = document.querySelector('#modal label')
 var userId = document.getElementById('userId');
 var modalWarning = document.getElementById('modalWarning');
 var closeBtn = document.querySelector('.closeBtn');
@@ -38,19 +41,17 @@ window.onload = function() {
     allowButtons(false);
 };
 
-var timerSelect = document.getElementById('timerSelect');
-
-// Actualiza el temporizador basado en la selección del usuario.
+//Actualiza el temporizador basado en la selección del usuario.
 timerSelect.addEventListener('change', function() {
-    if (!gameStarted) { // Solo permite cambiar el tiempo si el juego no ha comenzado.
+    if (!gameStarted) {
         timeLeft = parseInt(timerSelect.value) * 60;
         timerDisplay.textContent = `${String(Math.floor(timeLeft / 60)).padStart(2, '0')}:${String(timeLeft % 60).padStart(2, '0')}`;
     }
 });
+
 //Actualiza la tabla de puntuación.
 function updateScores (condition) {
-    var scoreTable = document.querySelector('.scoreTable');
-    scoreTable.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
+    ranking.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
     var scores = JSON.parse(localStorage.getItem('scores')) || [];
     if(condition === 'orderAlpha'){
         scores.sort(function(a, b) {
@@ -63,10 +64,7 @@ function updateScores (condition) {
         });
     }
     if(condition === 'orderDate'){
-        //REVISAR ESTO
-        scores.sort(function(a, b) {
-            return new Date(b.date) - new Date(a.date);
-        });
+        scores.sort(({date: a}, {date: b}) => a < b ? -1 : a > b ? 1 : 0);
     }
     scores.forEach(function(score) {
         var row = document.createElement('tr');
@@ -79,7 +77,7 @@ function updateScores (condition) {
         row.appendChild(nameCell);
         row.appendChild(scoreCell);
         row.appendChild(dateCell);
-        scoreTable.appendChild(row);
+        ranking.appendChild(row);
     });
 }
 
@@ -94,7 +92,6 @@ orderDate.addEventListener('click', function() {
     updateScores('orderDate');
 });
 
-
 //Inicio del juego.
 startButton.addEventListener('click', function() {
     startButton.classList.add('hidden');
@@ -106,7 +103,7 @@ startButton.addEventListener('click', function() {
     shuffleBoard();
     allowButtons(true);
     emptyTable();
-    timerSelect.disabled = true; // Desactiva el selector de tiempo.
+    timerSelect.disabled = true;
 });
 
 //Inicio del temporizador.
@@ -114,17 +111,14 @@ function startTimer() {
     countdown = setInterval(() => {
         var minutes = Math.floor(timeLeft / 60);
         var seconds = timeLeft % 60;
-        timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        
-        // Aplica el estilo si el tiempo es menor o igual a 10 segundos.
+        timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;        
         if (timeLeft <= 10) {
             timerDisplay.style.color = 'red';
             timerDisplay.style.fontWeight = 'bold';
         } else {
-            timerDisplay.style.color = ''; // Restablece el color por defecto.
-            timerDisplay.style.fontWeight = ''; // Restablece el peso de fuente por defecto.
+            timerDisplay.style.color = '';
+            timerDisplay.style.fontWeight = '';
         }
-        
         timeLeft--;
         if (timeLeft < 0) {
             clearInterval(countdown);
@@ -138,7 +132,6 @@ function startTimer() {
         }
     }, 1000);
 }
-
 
 //Baraja las letras.
 shuffleButton.addEventListener('click', shuffleBoard);
@@ -207,22 +200,22 @@ pauseButton.addEventListener('click', function() {
 resetButton.addEventListener('click', resetGame);
 function resetGame() {
     clearInterval(countdown);
-    timeLeft = parseInt(timerSelect.value) * 60; // Usa el valor seleccionado del temporizador.
+    timeLeft = parseInt(timerSelect.value) * 60;
     timerDisplay.textContent = `${String(Math.floor(timeLeft / 60)).padStart(2, '0')}:${String(timeLeft % 60).padStart(2, '0')}`;
     startButton.classList.remove('hidden');
     controlButtons.classList.add('hidden');
     isPaused = true;
     pauseButton.textContent = 'Pausar';
     currentWord.textContent = '';
-    timerDisplay.style.color = ''; // Restablece el color por defecto.
-    timerDisplay.style.fontWeight = ''; // Restablece el peso de fuente por defecto.
+    timerDisplay.style.color = '';
+    timerDisplay.style.fontWeight = '';
     cleanMessageSign();
     changeColor();
     gameStarted = false;
     emptyBoard();
     allowButtons(false);
     emptyTable();
-    timerSelect.disabled = false; // Vuelve a habilitar el selector de tiempo.
+    timerSelect.disabled = false;
 }
 
 //Cambia el color de fondo de las letras.
@@ -277,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+//Revisa la última letra seleccionada para ver si es válida.
 function checkLastWord(clickedLetter) {
     var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
     var rows = Math.sqrt(letterDivs.length);
@@ -284,55 +278,56 @@ function checkLastWord(clickedLetter) {
     var close = false;
     if (clickedIndex >= cols) {
         var topIndex = clickedIndex - cols;
-        if (letterDivs[topIndex].style.backgroundColor === 'black') {
+        if (letterDivs[topIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex < (rows - 1) * cols) {
         var bottomIndex = clickedIndex + cols;
-        if (letterDivs[bottomIndex].style.backgroundColor === 'black') {
+        if (letterDivs[bottomIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex % cols !== 0) {
         var leftIndex = clickedIndex - 1;
-        if (letterDivs[leftIndex].style.backgroundColor === 'black') {
+        if (letterDivs[leftIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if ((clickedIndex + 1) % cols !== 0) {
         var rightIndex = clickedIndex + 1;
-        if (letterDivs[rightIndex].style.backgroundColor === 'black') {
+        if (letterDivs[rightIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex >= cols && clickedIndex % cols !== 0) {
         var topLeftIndex = clickedIndex - cols - 1;
-        if (letterDivs[topLeftIndex].style.backgroundColor === 'black') {
+        if (letterDivs[topLeftIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex >= cols && (clickedIndex + 1) % cols !== 0) {
         var topRightIndex = clickedIndex - cols + 1;
-        if (letterDivs[topRightIndex].style.backgroundColor === 'black') {
+        if (letterDivs[topRightIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex < (rows - 1) * cols && clickedIndex % cols !== 0) {
         var bottomLeftIndex = clickedIndex + cols - 1;
-        if (letterDivs[bottomLeftIndex].style.backgroundColor === 'black') {
+        if (letterDivs[bottomLeftIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex < (rows - 1) * cols && (clickedIndex + 1) % cols !== 0) {
         var bottomRightIndex = clickedIndex + cols + 1;
-        if (letterDivs[bottomRightIndex].style.backgroundColor === 'black') {
+        if (letterDivs[bottomRightIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
             close = true;
         }
     }
     return close;
 }
 
+//Resalta las letras adyacentes a la letra seleccionada.
 function highlightWords(clickedLetter) {
     for (var i = 0; i < letterDivs.length; i++) {
         if (letterDivs[i].style.backgroundColor === 'black') {
@@ -394,13 +389,13 @@ function highlightWords(clickedLetter) {
     }
 }
 
-//Borrar la palabra actual.
+//Borra la palabra actual.
 cancelWord.addEventListener('click', function() {
     currentWord.textContent = '';
     changeColor();
 });
 
-//Enviar la palabra actual y verificar la misma.
+//Envia la palabra actual y verifica la misma.
 submitWord.addEventListener('click', function() {
     changeColor();
     if (currentWord.textContent !== '') {
@@ -426,7 +421,6 @@ submitWord.addEventListener('click', function() {
                         currentWord.textContent = '';
                     }
                     else{
-                        // Agrega la nueva palabra a la tabla
                         var newRow = document.createElement('tr');
                         var wordCell = document.createElement('td');
                         var scoreCell = document.createElement('td');
@@ -436,15 +430,10 @@ submitWord.addEventListener('click', function() {
                         newRow.appendChild(wordCell);
                         newRow.appendChild(scoreCell);
                         scoreTable.appendChild(newRow);
-                        
-                        // Limpia el estilo de todas las filas
                         for (var i = 2; i < rows.length; i++) {
                             rows[i].getElementsByTagName('td')[0].style.fontWeight = 'normal';
                         }
-                        
-                        // Aplica negrita a la última palabra agregada
                         wordCell.style.fontWeight = 'bold';
-                        
                         Message(true, 'La palabra es válida. Sigue así!!!');
                         currentWord.textContent = '';
                     }
@@ -486,6 +475,7 @@ function calculateScore(word) {
     }
 }
 
+//Resta un punto al usuario.
 function substrackPoint(){
     if(parseInt(totalPoints.textContent) === 0){
         shuffleBoard();
@@ -524,6 +514,7 @@ function contentModal(título, mensaje){
     modalMessage.textContent = mensaje;
     modalWarning.style.display = 'none';
     if(parseInt(totalPoints.textContent) > 0){
+        userLabel.style.display = 'block';
         userId.style.display = 'block';
         userId.value = '';
         modalOK.style.display = 'block';
@@ -534,6 +525,7 @@ function contentModal(título, mensaje){
         modalOK.style.display = 'none';
         modalNo.style.display = 'none';
         closeBtn.style.display = 'block';
+        userLabel.style.display = 'none';
     }
 }
 
@@ -553,6 +545,7 @@ modalOK.addEventListener('click', function() {
             if (existingScore) {
                 if (parseInt(totalPoints.textContent) > parseInt(existingScore.points)) {
                     existingScore.points = totalPoints.textContent;
+                    existingScore.date = new Date().toLocaleString();
                 }
             } else {
                 var newScore = {
@@ -565,7 +558,6 @@ modalOK.addEventListener('click', function() {
             localStorage.setItem('scores', JSON.stringify(scores));
             updateScores('orderScore');
         }
-        resetGame();
         closeModal();
     } else {
         modalWarning.textContent = 'Por favor, ingrese su nombre de usuario.';
@@ -579,6 +571,7 @@ closeBtn.addEventListener('click', closeModal);
 
 //Cierra el modal.
 function closeModal(){
+    resetGame();
     modal.style.display = 'none';
 }
 

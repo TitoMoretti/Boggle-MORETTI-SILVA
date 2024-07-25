@@ -193,9 +193,11 @@ function contentModal(título, mensaje){
 
 //Envía el mensaje.
 modalOK.addEventListener('click', function() {
+    form.method="post";
     form.action="mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&body=" + messageInput.value + "&cc=" + emailInput.value + "";
     form.submit();    
     closeModal();
+    messageInput.value = '';
 });
 
 //Cancela el envío del mensaje.
