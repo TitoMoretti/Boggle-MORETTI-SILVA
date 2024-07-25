@@ -24,7 +24,6 @@
                     <h1>Temporizador</h1>
                     <div id="timer">03:00</div>
                     <div class="timerSelect">
-
                         <label for="timerSelect">Elegir Tiempo: </label>
                         <select id="timerSelect">
                             <option value="1">1 minuto</option>
@@ -67,8 +66,10 @@
                         <p id="currentWord"></p>
                     </div>
                     <p id="messageSign"></p>
-                    <button id="cancel">Borrar Palabra</button>
-                    <button id="submit">Confirmar Palabra</button>
+                    <div id="buttonsConfirmCancel">
+                        <button id="cancel">Borrar Palabra</button>
+                        <button id="submit">Confirmar Palabra</button>
+                    </div>
                 </div>
                 <div id="wordList">
                     <table id="scoreTable">
@@ -107,7 +108,7 @@
                         <button id="regularOrder">Ordenar por Puntuación</button>
                         <button id="orderDate">Ordenar por Fecha</button>
                     </div>
-                    <table class="scoreTable"></table>
+                    <table class="ranking"></table>
                 </div>
             </div>
         </div>

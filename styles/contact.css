@@ -32,18 +32,18 @@
     justify-content: center;
     align-self: center;
     margin-right: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 30px;    
 }
 
 .contactPart input {
     width: 429px;
+    max-width: 424px;
 }
 
 .contactPart textarea {
     height: 332px;
     width: 424px;
     min-height: 332px;
-    min-width: 424px;
     max-width: 424px;
 }
 

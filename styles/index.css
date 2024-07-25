@@ -113,17 +113,17 @@ button:hover {
     width: 90%;
 }
 
-.scoreTable {
+.ranking {
     width: 100%;
 }
 
-.scoreTable th {
+.ranking th {
     background-color: #f36900;
     color: white;
     padding: 10px;
 }
 
-.scoreTable td {
+.ranking td {
     padding: 10px;
     border: 1px solid #f36900;
 
@@ -200,7 +200,7 @@ footer {
         margin-top: 15px;
     }
 
-    .scoreTable {
+    .ranking {
         max-width: 627px;
     }
 
@@ -246,7 +246,7 @@ footer {
         margin-top: 15px;
     }
 
-    .scoreTable {
+    .ranking {
         max-width: 627px;
     }
 
