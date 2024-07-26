@@ -1,151 +1,15 @@
-.game {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #ffff;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.timerShuffle{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.container {
-    text-align: center;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-#timer {
-    font-size: 3em;
-    margin: 20px 0;
-}
-
-#timerSelect{
-    font-weight: bold;
-}
-
 button {
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
     background-color: #f36900;
-    color: white;
+    border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 1em;
+    padding: 10px 20px;
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #000000;
-}
-
-.hidden {
-    display: none;
-}
-
-#diceGrid {
-    margin-top: 1rem;
-    padding: 2rem;
-    background-color: #ffffff;
-    border: 2px solid #f36900;
-    border-radius: 2rem;
-
-}
-
-#dice {
-    display: flex;
-    flex-wrap: wrap ;
-    width: 20rem;
-
-}
-
-.letter {
-    background-color: #f36900;
-    color: #fff;
-    height: 4rem;
-    width: 4rem;
-    margin: .5rem;
-    border-radius: .5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.infoGame {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 25px;
-}
-
-#wordHolder{
-    display: flex;
-    gap: 10px;
-    font-size: 25px;
-}
-
-#currentWord {
-    font-size: 20px;
-    padding-top: 15px;
-}
-
-#buttonsConfirmCancel{
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-}
-
-#messageSign {
-    margin-top: -30px;
-    margin-bottom: 20px;
-}
-
-#wordList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-#scoreTable {
-    margin-bottom: 20px;
-    margin-top: 20px;
-
-}
-
-#modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modalContent{
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    position: relative;
-    overflow: hidden;
-}
-
-.closeBtn{
+.closeBtn {
     background-color: #f36900;
     border-radius: 1rem;
     color: #fff;
@@ -156,9 +20,151 @@ button:hover {
     top: 10px;
 }
 
+.container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.game {
+    align-items: center;
+    background: #ffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.infoGame {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: space-between;
+}
+
+.letter {
+    align-items: center;
+    background-color: #f36900;
+    border-radius: .5rem;
+    color: #fff;
+    display: flex;
+    height: 4rem;
+    justify-content: center;
+    margin: .5rem;
+    width: 4rem;
+}
+
+.modalContent {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin: 15% auto;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 80%;
+}
+
+.ranking {
+    width: 100%;
+}
+
+.score {
+    width: 90%;
+}
+
+.scoreOrder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.scoreSection {
+    align-items: center;
+    border-radius: 1rem;
+    box-shadow: 0 2px 5px #00000042;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    width: 90%;
+}
+
+.timerSelect {
+    margin: 1rem;
+}
+
+.timerShuffle {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
 .userLabel {
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+#buttonsConfirmCancel {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+#buttonsModal {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#currentWord {
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+#dice {
+    display: flex;
+    flex-wrap: wrap;
+    width: 20rem;
+}
+
+#diceGrid {
+    background-color: #ffffff;
+    border: 2px solid #f36900;
+    border-radius: 2rem;
+    margin-top: 1rem;
+    padding: 2rem;
+}
+
+#messageSign {
+    margin-bottom: 20px;
+    margin-top: -30px;
+}
+
+#modal {
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 #modalWarning {
@@ -166,46 +172,45 @@ button:hover {
     width: 280px;
 }
 
-.okBtn, .noBtn{
-    background-color: #f36900;
-    color: #fff;
-    font-size: 20px;
-    border-radius: 1rem;
-    max-width: 130px;
-    height: 50px;
-    width: 80px;
-    margin: auto;
-}
-
-#buttonsModal {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.scoreSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-self: center;
-    margin-top: 1rem;
-    box-shadow: 0 2px 5px #00000042;
-    padding: 1rem;
-    border-radius: 1rem;
-    width: 90%;
-}
-
-.scoreOrder{
+#scoreTable {
     margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#timer {
+    font-size: 3em;
+    margin: 20px 0;
+}
+
+#timerSelect {
+    font-weight: bold;
+}
+
+#wordHolder {
     display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+    font-size: 25px;
     gap: 10px;
 }
 
-.ranking {
-    width: 100%;
+#wordList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #000000;
+}
+
+.okBtn, .noBtn {
+    background-color: #f36900;
+    border-radius: 1rem;
+    color: #fff;
+    font-size: 20px;
+    height: 50px;
+    margin: auto;
+    max-width: 130px;
+    width: 80px;
 }
 
 .ranking th, #scoreTable th {
@@ -215,26 +220,14 @@ button:hover {
 }
 
 .ranking td, #scoreTable td {
-    padding: 10px;
     border: 1px solid #f36900;
-
-}
-
-.score {
-    width: 90%;
-}
-
-.timerSelect{
-    margin: 1rem;
-}
-
-.timerSelect select {
-    padding: .5rem;
+    padding: 10px;
 }
 
 .timerSelect option {
     padding: .5rem;
 }
+
 .timerSelect option:checked {
     background-color: #f36900;
     color: #fefefe;
@@ -252,21 +245,21 @@ button:hover {
         gap: 25px;
     }
 
-    #scoreTable {
-        margin-bottom: 20px;
-    }
-
     .ranking {
         max-width: 627px;
     }
 
     .scoreSection {
-        max-width: 596px;
         margin: 0 auto;
+        max-width: 596px;
     }
 
     .scoreOrder{
         flex-direction: row;
+    }
+
+    #scoreTable {
+        margin-bottom: 20px;
     }
 }
 
@@ -279,14 +272,6 @@ button:hover {
         width: 100%;
     }
 
-    #wordList {
-        justify-content: flex-start;
-    }
-
-    #scoreTable {
-        margin-bottom: 0px;
-    }
-
     .ranking {
         max-width: 627px;
     }
@@ -295,12 +280,20 @@ button:hover {
         max-width: 627px;
     }
 
-    .scoreSection {
-        max-width: 596px;
-        margin: 0 auto;
-    }
-
     .scoreOrder{
         flex-direction: row;
+    }
+
+    .scoreSection {
+        margin: 0 auto;
+        max-width: 596px;
+    }
+
+    #scoreTable {
+        margin-bottom: 0px;
+    }
+
+    #wordList {
+        justify-content: flex-start;
     }
 }
