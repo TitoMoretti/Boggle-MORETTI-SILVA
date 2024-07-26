@@ -1,103 +1,4 @@
-.contact {
-    align-items: center;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-.contactTitle {
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: -3px;
-}
-
-.contactText {
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.contactDiv {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-.contactPart {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-self: center;
-    margin-right: 20px;
-    margin-bottom: 30px;    
-}
-
-.contactPart input {
-    width: 429px;
-    max-width: 424px;
-}
-
-.contactPart textarea {
-    height: 332px;
-    width: 424px;
-    min-height: 332px;
-    max-width: 424px;
-}
-
-.contactPart p {
-    margin-bottom: 10px;
-    font-size: 11px;
-    width: 200px;
-}
-
-.contactLabel {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.contactSubmit {
-    height: 50px;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    background-color: #f36900;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.contactSubmit:hover {
-    background-color: #000000;
-}
-
-#modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modalContent{
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    position: relative;
-    overflow: hidden;
-}
-
-.closeBtn{
+.closeBtn {
     background-color: #f36900;
     border-radius: 1rem;
     color: #fff;
@@ -109,21 +10,120 @@
     width: 85px;
 }
 
-.okBtn, .noBtn{
+.contact {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.contactDiv {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.contactLabel {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contactPart {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+
+.contactSubmit {
     background-color: #f36900;
-    color: #fff;
-    font-size: 20px;
-    border-radius: 1rem;
-    max-width: 130px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
     height: 50px;
-    width: 80px;
-    margin: auto;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.contactSubmit:hover {
+    background-color: #000000;
+}
+
+.contactText {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.contactTitle {
+    font-weight: bold;
+    margin-bottom: -3px;
+    margin-top: 20px;
+}
+
+.modalContent {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin: 15% auto;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 80%;
 }
 
 #buttonsModal {
     display: flex;
-    justify-content: space-between;
     gap: 20px;
+    justify-content: space-between;
+}
+
+#modal {
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.contactPart input {
+    max-width: 424px;
+    width: 429px;
+}
+
+.contactPart p {
+    font-size: 11px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.contactPart textarea {
+    height: 332px;
+    max-width: 424px;
+    min-height: 332px;
+    width: 424px;
+}
+
+.okBtn, .noBtn {
+    background-color: #f36900;
+    border-radius: 1rem;
+    color: #fff;
+    font-size: 20px;
+    height: 50px;
+    margin: auto;
+    max-width: 130px;
+    width: 80px;
 }
 
 /*Tablet*/
@@ -143,9 +143,9 @@
     .contactPart textarea {
         height: 332px;
         width: 549px;
-        min-width: 549px;
         max-width: 549px;
         min-height: 332px;
+        min-width: 549px;
     }
 }
 
@@ -162,8 +162,8 @@
     .contactPart textarea {
         height: 332px;
         width: 549px;
-        min-width: 549px;
         max-width: 549px;
         min-height: 332px;
+        min-width: 549px;
     }
 }
