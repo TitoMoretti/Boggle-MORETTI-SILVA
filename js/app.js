@@ -236,6 +236,7 @@ function emptyBoard() {
 
 //Agregar o quitar letras de la palabra actual.
 document.addEventListener('DOMContentLoaded', function() {
+    var originalColor;
     for (var i = 0; i < letterDivs.length; i++) {
         letterDivs[i].addEventListener('click', function() {            
             if(!isPaused) {
@@ -254,7 +255,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         this.style.fontWeight = 'bold';
                         highlightWords(this);
                     } else {
-                        if (checkLastWord(this)) {                            
+                        for (var i = 0; i < letterDivs.length; i++) {
+                            letterDivs[i].style.fontWeight = 'normal';
+                        }
+                        if (checkLastWord(this, originalColor)) {                            
                             this.style.backgroundColor = 'black';
                             currentWord.textContent += this.textContent;
                             this.style.fontWeight = 'bold';
@@ -267,60 +271,76 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }          
         });
+        letterDivs[i].addEventListener('mouseover', function() {
+            if(!isPaused){
+                if(this.style.backgroundColor !== 'black'){
+                    originalColor = this.style.backgroundColor;
+                    this.style.backgroundColor = 'grey';
+                }
+            }
+        });
+        letterDivs[i].addEventListener('mouseout', function() {
+            if(!isPaused){
+                if(this.style.backgroundColor !== 'black'){
+                    this.style.backgroundColor = originalColor;
+                }
+                originalColor = '';
+            }
+        });
     }
 });
 
 //Revisa la última letra seleccionada para ver si es válida.
-function checkLastWord(clickedLetter) {
+function checkLastWord(clickedLetter, originalColor) {
     var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
     var rows = Math.sqrt(letterDivs.length);
     var cols = rows;
     var close = false;
     if (clickedIndex >= cols) {
         var topIndex = clickedIndex - cols;
-        if (letterDivs[topIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[topIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex < (rows - 1) * cols) {
         var bottomIndex = clickedIndex + cols;
-        if (letterDivs[bottomIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[bottomIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex % cols !== 0) {
         var leftIndex = clickedIndex - 1;
-        if (letterDivs[leftIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[leftIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if ((clickedIndex + 1) % cols !== 0) {
         var rightIndex = clickedIndex + 1;
-        if (letterDivs[rightIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[rightIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex >= cols && clickedIndex % cols !== 0) {
         var topLeftIndex = clickedIndex - cols - 1;
-        if (letterDivs[topLeftIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[topLeftIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex >= cols && (clickedIndex + 1) % cols !== 0) {
         var topRightIndex = clickedIndex - cols + 1;
-        if (letterDivs[topRightIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[topRightIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex < (rows - 1) * cols && clickedIndex % cols !== 0) {
         var bottomLeftIndex = clickedIndex + cols - 1;
-        if (letterDivs[bottomLeftIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[bottomLeftIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }
     if (clickedIndex < (rows - 1) * cols && (clickedIndex + 1) % cols !== 0) {
         var bottomRightIndex = clickedIndex + cols + 1;
-        if (letterDivs[bottomRightIndex].style.backgroundColor === 'black' && clickedLetter.style.backgroundColor === 'red') {
+        if (letterDivs[bottomRightIndex].style.backgroundColor === 'black' && originalColor === 'red') {
             close = true;
         }
     }

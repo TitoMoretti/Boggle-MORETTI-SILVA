@@ -6,7 +6,7 @@ button {
     background-color: #f36900;
     border: none;
     border-radius: 5px;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     font-size: 1em;
     padding: 10px 20px;
@@ -15,8 +15,8 @@ button {
 
 footer {
     background-color: #f36900;
-    color: white;
-    margin-top: 1rem;
+    color: #ffffff;
+    margin-top: 20px;
     padding: 10px;
     text-align: center;
 }
@@ -24,7 +24,7 @@ footer {
 header {
     align-items: center;
     background-color: #f36900;
-    color: white;
+    color: #ffffff;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -57,7 +57,7 @@ main {
 }
 
 .footerLink {
-    color: white;
+    color: #ffffff;
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
@@ -67,11 +67,11 @@ main {
 .infoSection {
     align-items: center;
     box-shadow: 0 2px 5px #00000042;
-    border-radius: 1rem;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
-    padding: 1rem;
+    margin-top: 20px;
+    padding: 15px;
 }
 
 .infoContainer {
@@ -118,11 +118,8 @@ main {
 .scoreSection {
     align-items: center;
     box-shadow: 0 2px 5px #00000042;
-    border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
-    padding: 1rem;
     width: 90%;
 }
 
@@ -162,11 +159,10 @@ button:hover {
 #playGame button, #contact button {
     background-color: #f36900;
     border: none;
-    border-radius: 1rem;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     max-width: 130px;
-    padding: 1rem;
+    padding: 15px;
     transition: background-color 0.3s;
     width: 25%;
 }
