@@ -1,3 +1,5 @@
+'use strict';
+
 var countdown;
 var timeLeft = 3 * 60;
 var isPaused = false;
@@ -17,6 +19,7 @@ var letterDivs = dice.getElementsByClassName('letter');
 var orderAlpha = document.getElementById('orderAlpha');
 var orderScore = document.getElementById('regularOrder');
 var orderDate = document.getElementById('orderDate');
+var scoreMessage = document.getElementById('scoreMessage');
 var scoreTable = document.getElementById('scoreTable');
 var rows = scoreTable.getElementsByTagName('tr');
 var cancelWord = document.getElementById('cancel');
@@ -51,8 +54,8 @@ timerSelect.addEventListener('change', function() {
 
 //Actualiza la tabla de puntuación.
 function updateScores (condition) {
-    ranking.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
     var scores = JSON.parse(localStorage.getItem('scores')) || [];
+    ranking.innerHTML = '<tr><th>Usuario</th><th>Puntaje</th><th>Fecha y Hora</th></tr>';
     if(condition === 'orderAlpha'){
         scores.sort(function(a, b) {
             return a.userId.localeCompare(b.userId);
@@ -94,6 +97,7 @@ orderDate.addEventListener('click', function() {
 
 //Inicio del juego.
 startButton.addEventListener('click', function() {
+    scoreMessage.style.display = 'none';
     startButton.classList.add('hidden');
     controlButtons.classList.remove('hidden');
     isPaused = false;
@@ -136,10 +140,10 @@ function startTimer() {
 //Baraja las letras.
 shuffleButton.addEventListener('click', shuffleBoard);
 function shuffleBoard() {
+    var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     if(!isPaused && gameStarted){
         for (var i = 0; i < letterDivs.length; i++) {
             var letterDiv = letterDivs[i];
-            var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var randomIndex = Math.floor(Math.random() * letters.length);
             var randomLetter = letters[randomIndex];
             letterDiv.textContent = randomLetter;
@@ -349,6 +353,9 @@ function checkLastWord(clickedLetter, originalColor) {
 
 //Resalta las letras adyacentes a la letra seleccionada.
 function highlightWords(clickedLetter) {
+    var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
+    var rows = Math.sqrt(letterDivs.length);
+    var cols = rows;
     for (var i = 0; i < letterDivs.length; i++) {
         if (letterDivs[i].style.backgroundColor === 'black') {
             letterDivs[i].style.backgroundColor = 'black';
@@ -356,9 +363,6 @@ function highlightWords(clickedLetter) {
             letterDivs[i].style.backgroundColor = '#f36900';
         }
     }
-    var clickedIndex = Array.from(letterDivs).indexOf(clickedLetter);
-    var rows = Math.sqrt(letterDivs.length);
-    var cols = rows;
     if (clickedIndex >= cols) {
         var topIndex = clickedIndex - cols;
         if(letterDivs[topIndex].style.backgroundColor !== 'black'){
@@ -558,6 +562,7 @@ userId.addEventListener('focus', function() {
 modalOK.addEventListener('click', function() {
     if (userId.value) {
         if (totalPoints.textContent) {
+            scoreMessage.style.color = 'green';
             var scores = JSON.parse(localStorage.getItem('scores')) || [];
             var existingScore = scores.find(function(score) {
                 return score.userId === userId.value;
@@ -566,6 +571,10 @@ modalOK.addEventListener('click', function() {
                 if (parseInt(totalPoints.textContent) > parseInt(existingScore.points)) {
                     existingScore.points = totalPoints.textContent;
                     existingScore.date = new Date().toLocaleString();
+                    scoreMessage.textContent = 'Ha mejorado su puntaje. Felicidades ' + existingScore.userId + '!!!';
+                } else {
+                    scoreMessage.style.color = 'red';
+                    scoreMessage.textContent = 'No ha mejorado su puntaje. Siga intentándolo ' + existingScore.userId + '!!!';
                 }
             } else {
                 var newScore = {
@@ -574,9 +583,11 @@ modalOK.addEventListener('click', function() {
                     date: new Date().toLocaleString()
                 };
                 scores.push(newScore);
+                scoreMessage.textContent = 'Se ha registrado su puntaje!!!';
             }
             localStorage.setItem('scores', JSON.stringify(scores));
             updateScores('orderScore');
+            scoreMessage.style.display = 'block';
         }
         closeModal();
     } else {
