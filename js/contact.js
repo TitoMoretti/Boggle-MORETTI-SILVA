@@ -1,3 +1,5 @@
+'use strict';
+
 var nameInput = document.getElementById('nameId');
 var emailInput = document.getElementById('emailId');
 var messageInput = document.getElementById('messageId');
@@ -5,6 +7,7 @@ var submitButton = document.getElementById('submitId');
 var modal = document.querySelector('#modal');
 var modalTitle = document.querySelector('#modal h2');
 var modalMessage = document.querySelector('#modal p');
+var messageOnModal = document.getElementById('messageModal');
 var modalOK = document.querySelector('.okBtn');
 var modalNo = document.querySelector('.noBtn');
 var closeBtn = document.querySelector('.closeBtn');
@@ -93,8 +96,8 @@ function checkMessage(){
         return false;
     }
     else{
-        var regex = /^[a-zA-Z0-9\s]{5,}$/;
-        if (!regex.test(message)) {
+        var message = messageInput.value;
+        if (message.length < 5) {
             errorMessage(messageInput, 'El campo del Mensaje debe tener al menos 5 caracteres.')
             return false;
         }
@@ -143,7 +146,7 @@ submitButton.addEventListener('click', function(event) {
                         email: emailInput.value,
                     };
                     localStorage.setItem('userData', JSON.stringify(userData));
-                    contentModal('Todo parece correcto!', 'Está a punto de enviar el siguiente mensaje: "' + messageInput.value + '". ¿Desea continuar "' + nameInput.value + '"?');
+                    contentModal('Todo parece correcto!', 'Está a punto de enviar el siguiente mensaje. ¿Desea continuar "' + nameInput.value + '"?');
                 }
             }
         }  
@@ -181,10 +184,14 @@ function contentModal(título, mensaje){
     modalTitle.textContent = título;
     modalMessage.textContent = mensaje;
     if(!success){
+        messageOnModal.style.display = 'none';
         modalOK.style.display = 'none';
         modalNo.style.display = 'none';
         closeBtn.style.display = 'block';
     } else {
+        messageOnModal.textContent = messageInput.value;
+        messageOnModal.setAttribute('readonly', true);
+        messageOnModal.style.display = 'block';
         modalOK.style.display = 'block';
         modalNo.style.display = 'block';
         closeBtn.style.display = 'none';
@@ -193,8 +200,8 @@ function contentModal(título, mensaje){
 
 //Envía el mensaje.
 modalOK.addEventListener('click', function() {
-    form.method="post";
-    form.action="mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&body=" + messageInput.value + "&cc=" + emailInput.value + "";
+    form.method='post';
+    form.action='mailto:bogglemorettisilva@gmail.com?SUBJECT=Consulta Boggle&body=' + messageInput.value + '&cc=' + emailInput.value + '';
     form.submit();    
     closeModal();
     messageInput.value = '';

@@ -1,3 +1,5 @@
+'use strict';
+
 var orderAlpha = document.getElementById('orderAlpha');
 var orderScore = document.getElementById('regularOrder');
 var orderDate = document.getElementById('orderDate');

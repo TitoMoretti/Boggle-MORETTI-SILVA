@@ -55,10 +55,10 @@ button {
     border-radius: 10px;
     color: #fff;
     display: flex;
-    height: 4rem;
+    height: 64px;
     justify-content: center;
-    margin: .5rem;
-    width: 4rem;
+    margin: 8px;
+    width: 64px;
 }
 
 .modalContent {
@@ -167,6 +167,11 @@ button {
 #modalWarning {
     font-size: 15px;
     width: 280px;
+}
+
+#scoreMessage {
+    margin-top: 15px;
+    margin-bottom: -5px;
 }
 
 #scoreTable {
