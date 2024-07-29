@@ -478,7 +478,6 @@ submitWord.addEventListener('click', function() {
         }
     } else {
         Message(false, 'Por favor, ingrese una palabra.');
-        substrackPoint();
         currentWord.textContent = '';
     }
     changeColor();
