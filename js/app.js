@@ -565,7 +565,7 @@ modalOK.addEventListener('click', function() {
             scoreMessage.style.color = 'green';
             var scores = JSON.parse(localStorage.getItem('scores')) || [];
             var existingScore = scores.find(function(score) {
-                return score.userId === userId.value;
+                return score.userId.toLowerCase() === userId.value.toLowerCase();                
             });
             if (existingScore) {
                 if (parseInt(totalPoints.textContent) > parseInt(existingScore.points)) {
@@ -578,7 +578,7 @@ modalOK.addEventListener('click', function() {
                 }
             } else {
                 var newScore = {
-                    userId: userId.value,
+                    userId: userId.value.charAt(0).toUpperCase() + userId.value.slice(1).toLowerCase(),
                     points: totalPoints.textContent,
                     date: new Date().toLocaleString()
                 };

@@ -9,6 +9,10 @@ button {
     transition: background-color 0.3s;
 }
 
+button:hover {
+    background-color: #000000;
+}
+
 .closeBtn {
     background-color: #f36900;
     color: #fff;
@@ -199,10 +203,6 @@ button {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-button:hover {
-    background-color: #000000;
 }
 
 .okBtn, .noBtn {
