@@ -270,9 +270,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         else {
                             Message(false, 'La letra seleccionada no es válida.');
+                            this.style.backgroundColor = '#f36900';
+                            originalColor = this.style.backgroundColor;
                         }  
                     }
                 }
+                originalColor = this.style.backgroundColor;
             }          
         });
         letterDivs[i].addEventListener('mouseover', function() {
@@ -421,7 +424,6 @@ cancelWord.addEventListener('click', function() {
 
 //Envia la palabra actual y verifica la misma.
 submitWord.addEventListener('click', function() {
-    changeColor();
     if (currentWord.textContent !== '') {
         if (currentWord.textContent.length >= 3) {        
             var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + currentWord.textContent;
@@ -479,6 +481,7 @@ submitWord.addEventListener('click', function() {
         substrackPoint();
         currentWord.textContent = '';
     }
+    changeColor();
 });
 
 //Calcula la puntuación de la palabra.
@@ -505,12 +508,11 @@ function substrackPoint(){
         shuffleBoard();
     } else {
         totalPoints.textContent = parseInt(totalPoints.textContent) - 1;
-        var lenght = rows.length;
-        for (var i = lenght - 1; i > 1; i--) {
-            if(rows[i].getElementsByTagName('td')[1].textContent === '1'){
-                scoreTable.removeChild(rows[i]);
-                break;
-            }
+        var lastRow = rows[rows.length - 1];
+        lastRow.getElementsByTagName('td')[1].textContent = parseInt(lastRow.getElementsByTagName('td')[1].textContent) - 1;
+        if(parseInt(lastRow.getElementsByTagName('td')[1].textContent) === 0){
+            scoreTable.removeChild(lastRow);
+            shuffleBoard();
         }
     }
 }
@@ -569,6 +571,7 @@ modalOK.addEventListener('click', function() {
             });
             if (existingScore) {
                 if (parseInt(totalPoints.textContent) > parseInt(existingScore.points)) {
+                    existingScore.userId = userId.value;
                     existingScore.points = totalPoints.textContent;
                     existingScore.date = new Date().toLocaleString();
                     scoreMessage.textContent = 'Ha mejorado su puntaje. Felicidades ' + existingScore.userId + '!!!';
@@ -578,7 +581,7 @@ modalOK.addEventListener('click', function() {
                 }
             } else {
                 var newScore = {
-                    userId: userId.value.charAt(0).toUpperCase() + userId.value.slice(1).toLowerCase(),
+                    userId: userId.value,
                     points: totalPoints.textContent,
                     date: new Date().toLocaleString()
                 };
