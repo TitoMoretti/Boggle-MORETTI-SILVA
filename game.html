@@ -3,78 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boggle</title>
+    <title>Boggle - Juego</title>
     <link rel="icon" href="images/icon.png">
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/game.css">
 </head>
-<body id="body">
-    <header id="header">
+<body>
+    <header>
         <a href="index.html"><img id="logoHeader" src="images/logo.png" alt="LogoHeader"></a>
-        <h2 id="subtitleHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h2>
-        <h3 id="madebyHeader">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        <div id="headerText">
+            <h2 class="subtitleText">El juego de palabras más divertido</h2>
+            <h3 class="madeClass">Hecho por Ernesto J. Moretti y Mauricio Silva</h3>
+        </div>
     </header>
     <main>
-        <section id="diceGrid">
-            <div id="dice">
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
-                <button>1</button>
+        <div class="game">
+            <div class="timerShuffle">
+                <div class="container">
+                    <h1>Temporizador</h1>
+                    <div id="timer">03:00</div>
+                    <div class="timerSelect">
+                        <label for="timerSelect">Elegir Tiempo: </label>
+                        <select id="timerSelect">
+                            <option value="1">1 Minuto</option>
+                            <option value="2">2 Minutos</option>
+                            <option value="3" selected>3 Minutos</option>
+                        </select>
+                    </div>
+                    <button id="startButton">Iniciar Temporizador</button>
+                    <div id="controlButtons" class="hidden">
+                        <button id="pauseButton">Pausar</button>
+                        <button id="resetButton">Restablecer</button>
+                    </div>
+                </div>
+                <button id="shuffle">Shuffle</button>
             </div>
-        </section>
-        <section id="wordInfo">
-            <div id="wordHolder">
-                <h5>Palabra:</h5>
-                <p id="currentWord"></p>
+            <div id="diceGrid">
+                <div id="dice">
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                    <div class="letter"> </div>
+                </div>
             </div>
-            <button id="submit">Confirmar Palabra</button>
-        </section>
-        <section id="wordList">
-            <table id="scoreTable">
-                <tr>
-                    <th>Palabras</th>
-                    <th>Score</th>
-                </tr>
-                <tr>
-                    <td>Total:</td>
-                    <td id="totalPoints">0</td>
-                </tr>
-            </table>
-        </section>
+            <div class="infoGame">
+                <div id="wordInfo">
+                    <div id="wordHolder">
+                        <h5>Palabra:</h5>
+                        <p id="currentWord"></p>
+                    </div>
+                    <p id="messageSign"></p>
+                    <div id="buttonsConfirmCancel">
+                        <button id="cancel">Borrar Palabra</button>
+                        <button id="submit">Confirmar Palabra</button>
+                    </div>
+                </div>
+                <div id="wordList">
+                    <table id="scoreTable">
+                        <tr>
+                            <th>Palabras</th>
+                            <th>Score</th>
+                        </tr>
+                        <tr>
+                            <td>Total:</td>
+                            <td id="totalPoints">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="modal">
+                <div class="modalContent">
+                    <h2>Título</h2>
+                    <p>Contenido del modal.</p>
+                    <label class="userLabel" for="userId">Nombre de Usuario:</label>
+                    <input type="text" name="userName" id="userId">
+                    <p id="modalWarning"></p>
+                    <button class="closeBtn">Close</button>
+                    <div id="buttonsModal">
+                        <button class="okBtn">Si</button>
+                        <button class="noBtn">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="score">
+            <div class="scoreSection">
+                <div class="scoreContainer">
+                    <h3>Tabla de Puntuación: </h3>
+                    <div class="scoreOrder">
+                        <button id="orderAlpha">Ordenar Alfabéticamente</button>
+                        <button id="regularOrder">Ordenar por Puntuación</button>
+                        <button id="orderDate">Ordenar por Fecha</button>
+                    </div>
+                    <table class="ranking"></table>
+                    <p id="scoreMessage"> </p>
+                </div>
+            </div>
+        </div>
     </main>
-    <footer id="footer">
-        <section id="copyright">
+    <footer>
+        <div id="footer">
             <span>
-                Todos Los Derechos Reservados © 
-                2024 
+                <a class="footerLink" href="index.html">Inicio</a> -
+                <a class="footerLink" href="game.html">Jugar</a> -
+                <a class="footerLink" href="contact.html">Contacto</a> -
+                <a class="footerLink" href="https://github.com/TitoMoretti/Boggle-MORETTI-SILVA" target="_blank">GitHub</a>
+            </span>
+            <span class="Copyright">
+                Todos Los Derechos Reservados ©
+                2024
+            </span>
+            <span>
                 Ernesto J. Moretti -
                 Mauricio Silva
             </span>
-        </section>
+        </div>
     </footer>
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

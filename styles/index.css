@@ -1,84 +1,241 @@
-#body {
+* {
     font-family: Roboto, sans-serif;
-    margin: 0;
-    padding: 0;
 }
 
-#header {
+button {
     background-color: #f36900;
-    color: white;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+footer {
+    background-color: #f36900;
+    color: #ffffff;
+    margin-top: 20px;
+    padding: 10px;
     text-align: center;
+}
+
+header {
+    align-items: center;
+    background-color: #f36900;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+button:hover, #contact button:hover, #playGame button:hover {
+    background-color: #000000;
+}
+
+.contactText {
+    margin-top: 40px;
+}
+
+.Copyright {
+    border-top: 1px solid #d5d5d5;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 1236px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.footerLink {
+    color: #ffffff;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.infoSection {
+    align-items: center;
+    box-shadow: 0 2px 5px #00000042;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.infoContainer {
+    justify-content: space-between;
+    text-align: justify;
+    width: 100%;
+}
+
+.ranking {
+    width: 100%;
+}
+
+.ranking td {
+    border: 1px solid #f36900;
     padding: 10px;
 }
 
-#header img {
-    width: auto;
+.ranking th {
+    background-color: #f36900;
+    color: white;
+    padding: 10px;
 }
 
-#subtitleHeader {
-    font-size: 20px;
+.score {
+    width: 90%;
 }
 
-#madebyHeader {
-    font-size: 15px;
-}
-
-#mainPage {
+.scoreContainer {
     align-items: center;
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
+    text-align: center;
+    width: 100%;
 }
 
-#titlePage{
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: -3px;
-}
-
-#subtitlePage{
-    margin-top: 10px;
+.scoreOrder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
-#mainPagenDiv {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-#mainPagePart {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
-
-#mainPageImage1 {
-    width: 350px;
-}
-
-#footer{
-    background-color: #000000dc;
-    color: #333;
-    overflow: hidden;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    width: auto;
-}
-
-#copyright{
+.scoreSection {
     align-items: center;
-    background-color: #f36900;
     box-shadow: 0 2px 5px #00000042;
-    color: #333;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 10px;
-    width: 100%;
+    width: 90%;
+}
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#mainPage {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    max-width: 90%;
+}
+
+.contactText, .welcomeText, #playGame, #contact {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#playGame button, #contact button {
+    background-color: #f36900;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    max-width: 130px;
+    padding: 15px;
+    transition: background-color 0.3s;
+    width: 25%;
+}
+
+/*Tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    header {
+        justify-content: center;
+        padding: 20px;
+        flex-direction: row;
+    }
+
+    .infoContainer{
+        margin-right: 50px;  
+    }
+
+    .imgContainer{
+        margin-top: 15px;
+    }
+
+    .ranking {
+        max-width: 627px;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
+    }
+
+    .infoSection {
+        align-items: normal;
+        flex-direction: row;
+        max-width: 800px;
+    }
+
+    #headerText{
+        margin-left: 30px;
+    }
+}
+
+/*Desktop*/
+@media screen and (min-width: 1024px) {
+    header {
+        flex-direction: row;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .subtitleText{
+        margin-right: 30px;
+    }
+
+    .madeClass{
+        font-size: 23px;
+    }
+
+    .infoSection {
+        align-items: normal;
+        flex-direction: row;
+        width: 800px;
+    }
+
+    .infoContainer{
+       margin-right: 50px;  
+    }
+
+    .imgContainer{
+        margin-top: 15px;
+    }
+
+    .ranking {
+        max-width: 627px;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
+    }
+
+    #headerText{
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        margin-left: 30px;
+    }
 }

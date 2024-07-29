@@ -1,7 +1,297 @@
-#diceGrid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    margin: 0 auto;
-    width: 50%;
+button {
+    background-color: #f36900;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #000000;
+}
+
+.closeBtn {
+    background-color: #f36900;
+    color: #fff;
+    font-size: 20px;
+    height: 50px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000017;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.game {
+    align-items: center;
+    background: #ffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.infoGame {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: space-between;
+}
+
+.letter {
+    align-items: center;
+    background-color: #f36900;
+    border-radius: 10px;
+    color: #fff;
+    display: flex;
+    height: 64px;
+    justify-content: center;
+    margin: 8px;
+    width: 64px;
+}
+
+.modalContent {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin: 15% auto;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 80%;
+}
+
+.ranking {
+    width: 100%;
+}
+
+.score {
+    width: 90%;
+}
+
+.scoreOrder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.scoreSection {
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000017;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    padding: 20px;
+    width: 90%;
+}
+
+.timerSelect {
+    margin: 17px;
+}
+
+.timerShuffle {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.userLabel {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#buttonsConfirmCancel {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+#buttonsModal {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#currentWord {
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+#dice {
+    display: flex;
+    flex-wrap: wrap;
+    width: 320px;
+}
+
+#diceGrid {
+    background-color: #ffffff;
+    border: 2px solid #f36900;
+    border-radius: 32px;
+    margin-top: 16px;
+    padding: 32px;
+}
+
+#messageSign {
+    margin-bottom: 20px;
+    margin-top: -30px;
+}
+
+#modal {
+    background-color: #0000005a;
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+#modalWarning {
+    font-size: 15px;
+    width: 280px;
+}
+
+#scoreMessage {
+    margin-top: 15px;
+    margin-bottom: -5px;
+}
+
+#scoreTable {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#timer {
+    font-size: 48px;
+    margin: 20px 0;
+}
+
+#timerSelect {
+    font-weight: bold;
+    padding: 5px;
+}
+
+#wordHolder {
+    display: flex;
+    font-size: 25px;
+    gap: 10px;
+}
+
+#wordList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.okBtn, .noBtn {
+    background-color: #f36900;
+    color: #fff;
+    font-size: 20px;
+    height: 50px;
+    margin: auto;
+    margin-top: 15px;
+    max-width: 130px;
+    width: 80px;
+}
+
+.ranking th, #scoreTable th {
+    background-color: #f36900;
+    color: #fff;
+    padding: 10px;
+}
+
+.ranking td, #scoreTable td {
+    border: 1px solid #f36900;
+    padding: 10px;
+}
+
+.timerSelect option {
+    padding: 8px;
+}
+
+.timerSelect option:checked, .timerSelect option:hover {
+    background-color: #f36900;
+    color: #fefefe;
+}
+
+/*Tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .game {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .ranking {
+        max-width: 627px;
+    }
+
+    .scoreSection {
+        margin: 0 auto;
+        max-width: 596px;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
+    }
+
+    #scoreTable {
+        margin-bottom: 20px;
+    }
+}
+
+/*Desktop*/
+@media screen and (min-width: 1024px) {
+    .game {
+        flex-direction: row;
+        gap: 100px;
+        height: 612px;
+        width: 100%;
+    }
+
+    .ranking {
+        max-width: 627px;
+    }
+
+    .score {
+        max-width: 627px;
+    }
+
+    .scoreOrder{
+        flex-direction: row;
+    }
+
+    .scoreSection {
+        margin: 0 auto;
+        max-width: 596px;
+    }
+
+    #scoreTable {
+        margin-bottom: 0px;
+    }
+
+    #wordList {
+        justify-content: flex-start;
+    }
 }

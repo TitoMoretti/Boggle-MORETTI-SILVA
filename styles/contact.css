@@ -1,0 +1,179 @@
+.contactSubmit:hover {
+    background-color: #000000;
+}
+
+.closeBtn {
+    background-color: #f36900;
+    color: #fff;
+    font-size: 20px;
+    height: 50px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.contact {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.contactDiv {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    border-bottom: #f36900 2px solid;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+}
+
+.contactLabel {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contactPart {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.contactSubmit {
+    background-color: #f36900;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    height: 50px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.contactText {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.contactTitle {
+    font-weight: bold;
+    margin-bottom: -3px;
+    margin-top: 20px;
+}
+
+.modalContent {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin: 15% auto;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 80%;
+}
+
+#buttonsModal {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+#messageModal {
+    height: 332px;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 549px;
+}
+
+#modal {
+    background-color: #0000005a;
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.contactPart input {
+    max-width: 424px;
+    width: 429px;
+}
+
+.contactPart p {
+    font-size: 11px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.contactPart textarea{
+    height: 332px;
+    max-height: 332px;
+    max-width: 424px;
+    min-height: 332px;
+    min-width: 424px;
+    width: 424px;
+}
+
+.okBtn, .noBtn {
+    background-color: #f36900;
+    color: #fff;
+    font-size: 20px;
+    height: 50px;
+    margin: auto;
+    max-width: 130px;
+    width: 80px;
+}
+
+/*Tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .contactDiv {
+        flex-direction: row;
+    }
+
+    .contactPart input {
+        max-width: 260px;
+    }
+
+    .contactSubmit {
+        align-self: flex-end;
+    }
+
+    .contactPart textarea {
+        height: 332px;
+        max-width: 549px;
+        min-height: 332px;
+        min-width: 549px;
+        width: 549px;
+    }
+}
+
+/*Desktop*/
+@media screen and (min-width: 1024px) {
+    .contactDiv {
+        flex-direction: row;
+    }
+
+    .contactPart input {
+        max-width: 260px;
+    }
+
+    .contactPart textarea {
+        height: 332px;
+        max-width: 549px;
+        min-height: 332px;
+        min-width: 549px;
+        width: 549px;
+    }
+}
