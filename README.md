@@ -4,7 +4,7 @@ Bienvenido a Boggle, un juego en donde usted debe tratar de encontrar palabras e
 
 ## Github Page
 
- <a href="https://titomoretti.github.io/Boggle-MORETTI-SILVA/" target=”_blank”>Link del proyecto</a>
+ <a href="https://titomoretti.github.io/Boggle-MORETTI-SILVA/">Link del proyecto</a>
 
 ## Reglas
 
@@ -32,7 +32,7 @@ El jugador, debe ir guardando cada palabra que encuentra de tal manera que se va
 | :-- |
 | CSS |
 | JS |
-| <a href="https://github.com/meetDeveloper/freeDictionaryAPI" target=”_blank”>Free Dictionary API</a> |
+| <a href="https://github.com/meetDeveloper/freeDictionaryAPI">Free Dictionary API</a> |
 
 ## Datos de este Proyecto
 
