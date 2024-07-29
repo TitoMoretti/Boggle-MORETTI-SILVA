@@ -42,6 +42,10 @@ main {
     flex-direction: column;
 }
 
+button:hover, #contact button:hover, #playGame button:hover {
+    background-color: #000000;
+}
+
 .contactText {
     margin-top: 40px;
 }
@@ -138,22 +142,10 @@ main {
     max-width: 90%;
 }
 
-button:hover {
-    background-color: #000000;
-}
-
 .contactText, .welcomeText, #playGame, #contact {
     align-items: center;
     display: flex;
     flex-direction: column;
-}
-
-#contact button:hover {
-    background-color: #000000;
-}
-
-#playGame button:hover {
-    background-color: #000000;
 }
 
 #playGame button, #contact button {

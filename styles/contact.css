@@ -1,3 +1,7 @@
+.contactSubmit:hover {
+    background-color: #000000;
+}
+
 .closeBtn {
     background-color: #f36900;
     color: #fff;
@@ -54,10 +58,6 @@
     transition: background-color 0.3s;
 }
 
-.contactSubmit:hover {
-    background-color: #000000;
-}
-
 .contactText {
     margin-bottom: 20px;
     margin-top: 10px;
@@ -87,12 +87,11 @@
 
 #messageModal {
     height: 332px;
-    width: 720px;
-    max-height: 332px;
-    max-width: 720px;
-    min-height: auto;
-    min-width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
     margin-bottom: 20px;
+    width: 549px;
 }
 
 #modal {
@@ -172,9 +171,9 @@
 
     .contactPart textarea {
         height: 332px;
-        width: 549px;
         max-width: 549px;
         min-height: 332px;
         min-width: 549px;
+        width: 549px;
     }
 }
