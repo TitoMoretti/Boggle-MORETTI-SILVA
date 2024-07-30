@@ -4,6 +4,7 @@ var countdown;
 var timeLeft = 3 * 60;
 var isPaused = false;
 var gameStarted = false;
+var diceDisabled = false;
 
 var timerSelect = document.getElementById('timerSelect');
 var timerDisplay = document.getElementById('timer');
@@ -185,6 +186,7 @@ pauseButton.addEventListener('click', function() {
         pauseButton.textContent = 'Pausar';
         for (var i = 0; i < letterDivs.length; i++) {
             letterDivs[i].style.color = 'white';
+            letterDivs[i].style.fontWeight = 'normal';
         }
         allowButtons(true);
     } else {
@@ -244,38 +246,40 @@ document.addEventListener('DOMContentLoaded', function() {
     for (var i = 0; i < letterDivs.length; i++) {
         letterDivs[i].addEventListener('click', function() {            
             if(!isPaused) {
-                if(this.style.backgroundColor === 'black'){
-                    changeColor();
-                    this.style.backgroundColor = '#f36900';
-                    currentWord.textContent = '';
-                    cleanMessageSign();
-                }
-                else {
-                    cleanMessageSign();
-                    if (currentWord.textContent === '') {
+                if(!diceDisabled){
+                    if(this.style.backgroundColor === 'black'){
                         changeColor();
-                        this.style.backgroundColor = 'black';
-                        currentWord.textContent += this.textContent;
-                        this.style.fontWeight = 'bold';
-                        highlightWords(this);
-                    } else {
-                        for (var i = 0; i < letterDivs.length; i++) {
-                            letterDivs[i].style.fontWeight = 'normal';
-                        }
-                        if (checkLastWord(this, originalColor)) {                            
+                        this.style.backgroundColor = '#f36900';
+                        currentWord.textContent = '';
+                        cleanMessageSign();
+                    }
+                    else {
+                        cleanMessageSign();
+                        if (currentWord.textContent === '') {
+                            changeColor();
                             this.style.backgroundColor = 'black';
                             currentWord.textContent += this.textContent;
                             this.style.fontWeight = 'bold';
                             highlightWords(this);
+                        } else {
+                            for (var i = 0; i < letterDivs.length; i++) {
+                                letterDivs[i].style.fontWeight = 'normal';
+                            }
+                            if (checkLastWord(this, originalColor)) {                            
+                                this.style.backgroundColor = 'black';
+                                currentWord.textContent += this.textContent;
+                                this.style.fontWeight = 'bold';
+                                highlightWords(this);
+                            }
+                            else {
+                                Message(false, 'La letra seleccionada no es válida.');
+                                this.style.backgroundColor = '#f36900';
+                                originalColor = this.style.backgroundColor;
+                            }  
                         }
-                        else {
-                            Message(false, 'La letra seleccionada no es válida.');
-                            this.style.backgroundColor = '#f36900';
-                            originalColor = this.style.backgroundColor;
-                        }  
                     }
+                    originalColor = this.style.backgroundColor;
                 }
-                originalColor = this.style.backgroundColor;
             }          
         });
         letterDivs[i].addEventListener('mouseover', function() {
@@ -423,15 +427,24 @@ cancelWord.addEventListener('click', function() {
 });
 
 //Envia la palabra actual y verifica la misma.
-submitWord.addEventListener('click', function() {
+submitWord.addEventListener('click', validateWord);
+function validateWord(){
     if (currentWord.textContent !== '') {
-        if (currentWord.textContent.length >= 3) {        
-            var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + currentWord.textContent;
-            fetch(url)
-            .then(response => {
-                if(response.status === 404){
+        if (currentWord.textContent.length >= 3) {
+            diceDisabled = true;
+            messageSign.style.color = 'black';
+            messageSign.textContent = 'Verificando...';
+            var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+            var fetchWord = async word => {
+                var response = await fetch(url + word);
+                var data = await response.json();
+                return data;
+            }
+            fetchWord(currentWord.textContent).then(data => {
+                if(data.title === 'No Definitions Found'){
                     Message(false, 'La palabra no es una palabra válida.');
                     substrackPoint();
+                    diceDisabled = false;
                     currentWord.textContent = '';
                 }
                 else{
@@ -443,7 +456,7 @@ submitWord.addEventListener('click', function() {
                     }
                     if(repeated){
                         Message(false, 'La palabra ya ha sido insertada.');
-                        substrackPoint();
+                        diceDisabled = false;
                         currentWord.textContent = '';
                     }
                     else{
@@ -461,19 +474,16 @@ submitWord.addEventListener('click', function() {
                         }
                         wordCell.style.fontWeight = 'bold';
                         Message(true, 'La palabra es válida. Sigue así!!!');
+                        diceDisabled = false;
                         currentWord.textContent = '';
                     }
                 }
-            })
-            .catch(() => { 
-                Message(false, 'La palabra no es una palabra válida.');
-                substrackPoint();
-                currentWord.textContent = '';
+            }).catch(() => {
+                validateWord();
             });
         }
         else{
             Message(false, 'La palabra debe tener al menos 3 letras.');
-            substrackPoint();
             currentWord.textContent = '';
         }
     } else {
@@ -481,7 +491,7 @@ submitWord.addEventListener('click', function() {
         currentWord.textContent = '';
     }
     changeColor();
-});
+}
 
 //Calcula la puntuación de la palabra.
 function calculateScore(word) {
@@ -503,9 +513,7 @@ function calculateScore(word) {
 
 //Resta un punto al usuario.
 function substrackPoint(){
-    if(parseInt(totalPoints.textContent) === 0){
-        shuffleBoard();
-    } else {
+    if(parseInt(totalPoints.textContent) !== 0){
         totalPoints.textContent = parseInt(totalPoints.textContent) - 1;
         var lastRow = rows[rows.length - 1];
         lastRow.getElementsByTagName('td')[1].textContent = parseInt(lastRow.getElementsByTagName('td')[1].textContent) - 1;
